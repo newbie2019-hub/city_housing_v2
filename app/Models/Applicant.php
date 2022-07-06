@@ -6,15 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
+use Znck\Eloquent\Traits\BelongsToThrough;
 
 class Applicant extends Model
 {
-    use HasFactory, SoftDeletes, CascadeSoftDeletes;
+    use HasFactory, SoftDeletes, CascadeSoftDeletes, BelongsToThrough;
 
     protected $fillable = [
         'applicant_info_id',
         'spouse_id',
-        'housing_project_id',
+        'housing_unit_id',
         // 'real_holding_id',
         'application_status'
     ];
@@ -34,13 +35,22 @@ class Applicant extends Model
     {
         return $this->hasMany(FamilyComposition::class)->withTrashed(); //Rule alp
     }
-
-    public function housing_project()
+    public function requirementsImage()
     {
-        return $this->belongsTo(HousingProject::class, 'housing_project_id', 'id');
+        return $this->hasMany(ApplicantRequirementImage::class); //Rule alp
     }
 
-    
+    // public function housing_unit()
+    // {
+    //     return $this->belongsToThrough(HousingProject::class, HousingUnit::class)
+    //     ->withPivot('');
+    // }
+    public function housing_unit()
+    {
+        return $this->belongsTo(HousingUnit::class, 'housing_unit_id', 'id');
+    }
+
+
     public function requirements()
     {
         return $this->belongsToMany(Requirement::class, 'applicants_requirments');

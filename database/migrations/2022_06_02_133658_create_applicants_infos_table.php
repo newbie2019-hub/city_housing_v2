@@ -19,11 +19,13 @@ return new class extends Migration
             $table->string('middle_name')->default("-");
             $table->string('last_name');
             $table->string('suffix')->nullable();
+            $table->string('gender');
             $table->string('brgy_origin');
             $table->string('birth_date');
             $table->string('civil_status');
             $table->string('office')->nullable();
             $table->string('income_per_month');
+            $table->boolean('deceased')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

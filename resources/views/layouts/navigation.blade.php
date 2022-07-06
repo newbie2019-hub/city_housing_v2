@@ -54,7 +54,7 @@
                     </x-nav-link>
                 </li>
 
-                 <li class="relative px-6 py-2">
+                <li class="relative px-6 py-2">
                     <button
                         class="inline-flex items-center w-full gap-6 ml-2 text-base font-semibold text-gray-800 transition-colors duration-150 hover:text-blue-800"
                         @click="toggleMultiLevelMenu" aria-haspopup="true">

@@ -31,7 +31,6 @@ class ProfileController extends Controller
 
 
         if ($request->hasFile('avatar')) {
-
             if (auth()->user()->avatar)  unlink("images/profile/" . auth()->user()->avatar);
             $avatar =  auth()->id() . '-' . $request->first_name . '-' . $request->last_name . '.' . $request->avatar->getClientOriginalExtension();
             $request->avatar->move(public_path('images/profile'), $avatar);

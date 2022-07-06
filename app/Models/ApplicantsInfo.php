@@ -16,6 +16,7 @@ class ApplicantsInfo extends Model
         'middle_name', // nullable
         'last_name',
         'suffix',
+        'gender',
         'brgy_origin',
         'birth_date',
         'place_of_birth',

@@ -14,6 +14,7 @@ class Spouse extends Model
         'spouse_first_name',
         'spouse_middle_name', // nullable
         'spouse_last_name',
+        'spouse_gender',
         'spouse_birth_date',
         'spouse_place_of_birth',
     ];

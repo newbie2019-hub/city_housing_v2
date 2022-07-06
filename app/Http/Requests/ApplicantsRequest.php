@@ -31,6 +31,7 @@ class ApplicantsRequest extends FormRequest
             'last_name' => ['bail', 'required', 'max:120'],
             'suffix' => ['bail', 'nullable', 'max:120'],
             'brgy_origin' => ['bail', 'required'],
+            'gender' => ['bail', 'required'],
             'birth_date' => ['bail', 'required'],
             'place_of_birth' => ['bail', 'required'],
             'citizenship' => ['bail', 'required'],
@@ -43,6 +44,7 @@ class ApplicantsRequest extends FormRequest
             'spouse_first_name' => ['bail', 'required', 'max:120'],
             'spouse_middle_name' => ['bail', 'nullable', 'max:120'],
             'spouse_last_name' => ['bail', 'required', 'max:120'],
+            'spouse_gender' => ['bail', 'required', 'max:120'],
             'spouse_birth_date' => ['bail', 'required'],
             'spouse_place_of_birth' => ['bail', 'required'],
 

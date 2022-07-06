@@ -76,7 +76,8 @@ class ApplicantsController extends Controller
      */
     public function show(Applicant $applicant)
     {
-        $applicant->load('info', 'spouse', 'housing_project', 'family_composition', 'requirements:description');
+        $applicant->load('info', 'spouse', 'housing_unit.housingproject', 'family_composition', 'requirements:description');
+
         return view('applicants.show', compact('applicant'));
     }
 
@@ -90,7 +91,7 @@ class ApplicantsController extends Controller
     {
         $housing_projects = HousingProject::get(['id', 'project']);
 
-        $applicant->load('info', 'spouse', 'housing_project', 'family_composition', 'requirements:description');
+        $applicant->load('info', 'spouse',  'housing_unit.housingproject', 'family_composition', 'requirements:description');
 
         return view('applicants.edit', compact('applicant', 'housing_projects'));
     }
@@ -107,26 +108,23 @@ class ApplicantsController extends Controller
         $applicant->info->update($request->validated());
         $applicant->spouse->update($request->validated());
         $applicant->update($request->validated());
-        $applicant->family_composition->upsert([
-            [$request->familyCompositions],
+        foreach ($request->familyCompositions as $family) {
+            FamilyComposition::updateOrCreate([
+                'relation' => $family['relation'],
+                'civil_status' => $family['civil_status'],
+                'age' => $family['age'],
+                'gender' => $family['gender'],
+                'source_of_income' => $family['source_of_income'],
 
-        ], [
-            'first_name',
-            'middle_name',
-            'last_name',
-            'relation',
-            'civil_status',
-            'age',
-            'source_of_income',
-        ], [
-            'first_name',
-            'middle_name',
-            'last_name',
-            'relation',
-            'civil_status',
-            'age',
-            'source_of_income',
-        ]);
+            ], [
+                'applicant_id' => $applicant->id,
+                'first_name' => $family['first_name'],
+                'middle_name' => $family['middle_name'],
+                'last_name' => $family['last_name'],
+            ]);
+        }
+
+        return redirect()->route('applicants.index');
     }
 
     /**

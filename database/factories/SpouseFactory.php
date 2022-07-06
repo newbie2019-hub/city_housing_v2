@@ -23,6 +23,7 @@ class SpouseFactory extends Factory
             'spouse_first_name' => $first_name,
             'spouse_middle_name' => $this->faker->lastName,
             'spouse_last_name' => $this->faker->lastName,
+            'spouse_gender' => $gender,
             'spouse_birth_date' => $this->faker->date('Y-m-d', '2000-08-10'),
             'spouse_place_of_birth' => $this->faker->address(),
         ];

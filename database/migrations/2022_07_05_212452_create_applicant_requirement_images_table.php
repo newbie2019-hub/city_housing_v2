@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Applicant;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,10 +14,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('applicants_requirement', function (Blueprint $table) {
+        Schema::create('applicant_requirement_images', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('requirements_id')->constrained('requirements');
-            $table->foreignId('applicant_id')->constrained('applicants');
+            $table->foreignIdFor(Applicant::class)->constrained();
+            $table->string('image');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('applicants_requirement');
+        Schema::dropIfExists('applicant_requirement_images');
     }
 };

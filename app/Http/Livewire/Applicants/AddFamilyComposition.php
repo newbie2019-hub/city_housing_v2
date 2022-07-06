@@ -9,13 +9,6 @@ class AddFamilyComposition extends Component
 
     public $familyCompositions = [];
 
-
-    public function mount()
-    {
-        $this->familyCompositions[] = [];
-    }
-
-
     /**
      * Write code on Method
      *

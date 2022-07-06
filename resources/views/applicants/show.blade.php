@@ -10,37 +10,39 @@
         <div class="mt-5">
             <p class="font-medium text-base">Housing Project</p>
             <div class="grid grid-cols-4 gap-6 mb-5">
+
                 <div class="mt-4">
                     <div class="relative">
-                        <x-floating-input type="text" id="phase_no" name="phase_no" class="block w-full border-2 "
-                            required />
+                        <x-floating-input type="text" id="Housing Project" name="Housing Project"
+                            value="{{ $applicant->housing_unit->housingproject->project }}" class="block w-full " />
+                        <x-floating-label for="Housing Project" :value="__('Housing Project')" />
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="relative">
+                        <x-floating-input value="{{ $applicant->housing_unit->block_no }}" type="text" id="phase_no"
+                            name="phase_no" class="block w-full border-2 " required />
                         <x-floating-label for="phase_no" :value="__('Phase No.')" />
                     </div>
                 </div>
 
                 <div class="mt-4">
                     <div class="relative">
-                        <x-floating-input type="text" id="block_no" name="block_no" class="block w-full border-2 "
-                            required />
+                        <x-floating-input value="{{ $applicant->housing_unit->lot_no }}" type="text" id="block_no"
+                            name="block_no" class="block w-full border-2 " required />
                         <x-floating-label for="block_no" :value="__('Block No.')" />
                     </div>
                 </div>
 
                 <div class="mt-4">
                     <div class="relative">
-                        <x-floating-input type="text" id="lot_no" name="lot_no" class="block w-full border-2 "
-                            required />
+                        <x-floating-input value="{{ $applicant->housing_unit->phase_no }}" type="text" id="lot_no"
+                            name="lot_no" class="block w-full border-2 " required />
                         <x-floating-label for="lot_no" :value="__('Lot No.')" />
                     </div>
                 </div>
 
-                <div class="mt-4">
-                    <div class="relative">
-                        <x-floating-input type="text" id="Housing Project" name="Housing Project"
-                            value="{{ $applicant->housing_project->project }}" class="block w-full " />
-                        <x-floating-label for="Housing Project" :value="__('Housing Project')" />
-                    </div>
-                </div>
+
 
             </div>
         </div>
@@ -78,6 +80,14 @@
                         <x-floating-input type="text" id="suffix" name="suffix" value="{{ $applicant->info->suffix }}"
                             class="block w-full " />
                         <x-floating-label for="suffix" :value="__('Suffix')" />
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <div class="relative">
+                        <x-floating-input type="text" id="gender" name="gender" value="{{ $applicant->info->gender }}"
+                            class="block w-full " />
+                        <x-floating-label for="gender" :value="__('Gender')" />
                     </div>
                 </div>
 
@@ -194,6 +204,14 @@
                     </div>
                 </div>
 
+                <div class="mt-4">
+                    <div class="relative">
+                        <x-floating-input type="text" id="spouse_gender" name="spouse_gender"
+                            value="{{ $applicant->spouse->spouse_gender }}" class="block w-full " />
+                        <x-floating-label for="spouse_gender" :value="__('Gender')" />
+                    </div>
+                </div>
+
 
                 <div class="mt-4">
                     <div class="relative">
@@ -228,6 +246,11 @@
                         Relation
                     </x-table.heading>
 
+                    <x-table.heading sortable multi-column wire:click="sortBy('gender')"
+                        :direction="$sorts['gender'] ?? null">
+                        Gender
+                    </x-table.heading>
+
                     <x-table.heading sortable multi-column wire:click="sortBy('civil_status')"
                         :direction="$sorts['civil_status'] ?? null">
                         Civil Status
@@ -253,6 +276,10 @@
 
                         <x-table.cell class="cell">
                             {{ $family->relation }}
+                        </x-table.cell>
+
+                        <x-table.cell class="cell">
+                            {{ $family->gender }}
                         </x-table.cell>
 
                         <x-table.cell class="cell">
