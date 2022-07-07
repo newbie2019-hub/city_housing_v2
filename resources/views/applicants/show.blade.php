@@ -325,6 +325,12 @@
                 </div>
                 @endforeach
             </div>
+
+            <div class="mt-5 flex gap-2">
+                @foreach ($applicant->requirementsImage as $photo)
+                <img class="mx-2 h-32 w-32" src="{{ asset('storage/images/requirement/'. $photo->image) }}">
+                @endforeach
+            </div>
         </div>
 
     </div>

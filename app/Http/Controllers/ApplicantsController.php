@@ -29,6 +29,7 @@ class ApplicantsController extends Controller
      */
     public function create()
     {
+
         $housing_projects = HousingProject::get(['id', 'project']);
         return view('applicants.create', compact('housing_projects'));
     }
@@ -39,7 +40,7 @@ class ApplicantsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ApplicantsRequest $request)
+    public function store(Request $request)
     {
 
         $applicant_info = ApplicantsInfo::create($request->validated());
@@ -76,7 +77,7 @@ class ApplicantsController extends Controller
      */
     public function show(Applicant $applicant)
     {
-        $applicant->load('info', 'spouse', 'housing_unit.housingproject', 'family_composition', 'requirements:description');
+        $applicant->load('info', 'spouse', 'housing_unit.housingproject', 'family_composition', 'requirements:description', 'requirementsImage');
 
         return view('applicants.show', compact('applicant'));
     }
@@ -91,7 +92,14 @@ class ApplicantsController extends Controller
     {
         $housing_projects = HousingProject::get(['id', 'project']);
 
-        $applicant->load('info', 'spouse',  'housing_unit.housingproject', 'family_composition', 'requirements:description');
+        $applicant->load(
+            'info',
+            'spouse',
+            'housing_unit.housingproject',
+            'family_composition',
+            'requirements:description',
+            'requirementsImage'
+        );
 
         return view('applicants.edit', compact('applicant', 'housing_projects'));
     }

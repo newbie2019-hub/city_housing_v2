@@ -38,16 +38,22 @@ class Create extends ModalComponent
 
     public function saveHousingUnit()
     {
-        // $this->authorize('role_create');
+        $this->authorize('housingunit_create');
         $this->validate();
 
         HousingUnit::create([
-         'housing_project_id' => $this->housing_project_id,
-         'block_no' => $this->block_no,
-         'phase_no' => $this->phase_no,
-         'lot_no' => $this->lot_no,
-         'remark' => $this->remark
+            'housing_project_id' => $this->housing_project_id,
+            'block_no' => $this->block_no,
+            'phase_no' => $this->phase_no,
+            'lot_no' => $this->lot_no,
+            'remark' => $this->remark
         ]);
+
+
+        activity()
+            ->causedBy(auth()->user()->id)
+            ->event('Housing Unit Created')
+            ->log('Created a housing unit');
 
         $this->emit('userTableRefreshEvent');
         $this->emit('showToastNotification', ['type' => 'success', 'message' => 'Housing Unit created successfully!', 'title' => 'Success']);

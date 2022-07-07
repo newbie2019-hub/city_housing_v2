@@ -82,7 +82,7 @@
                     <div class="flex justify-end mt-5">
                         <x-button.text-button btnType="secondary" wire:click="$emit('closeModal')">Cancel
                         </x-button.text-button>
-                        <x-button.text-button btnType="success" wire:click="saveHousingUnit">Save Housing
+                        <x-button.text-button btnType="success" type="submit">Save Housing
                             Unit
                         </x-button.text-button>
                     </div>

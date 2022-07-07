@@ -33,18 +33,13 @@ class Applicant extends Model
 
     public function family_composition()
     {
-        return $this->hasMany(FamilyComposition::class)->withTrashed(); //Rule alp
+        return $this->hasMany(FamilyComposition::class)->withTrashed();
     }
     public function requirementsImage()
     {
-        return $this->hasMany(ApplicantRequirementImage::class); //Rule alp
+        return $this->hasMany(ApplicantRequirementImage::class);
     }
 
-    // public function housing_unit()
-    // {
-    //     return $this->belongsToThrough(HousingProject::class, HousingUnit::class)
-    //     ->withPivot('');
-    // }
     public function housing_unit()
     {
         return $this->belongsTo(HousingUnit::class, 'housing_unit_id', 'id');

@@ -40,6 +40,7 @@ class ProfileController extends Controller
 
         activity()
             ->causedBy(auth()->user()->id)
+            ->event('User Profile Updated')
             ->log('Updated Profile');
 
         toast('Profile Updated Succesfully', 'success');

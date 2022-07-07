@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Applicants;
 
+use App\Actions\SaveApplicantAttachmentRequirmentAction;
 use App\Http\Livewire\DataTable\WithSorting;
 use App\Models\Applicant;
 use App\Models\ApplicantRequirementImage;
@@ -12,6 +13,7 @@ use App\Models\HousingProject;
 use App\Models\HousingUnit;
 use App\Models\Requirement;
 use App\Models\Spouse;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -19,8 +21,8 @@ use Livewire\WithPagination;
 
 class CreateApplicant extends Component
 {
-    use WithPagination, WithSorting, WithFileUploads;
-    public $counter = 4;
+    use WithPagination, WithSorting, WithFileUploads, AuthorizesRequests;
+    public $counter = 1;
 
     public $applicant_info = [
         'first_name' => '',
@@ -146,6 +148,7 @@ class CreateApplicant extends Component
 
     public function render()
     {
+        $this->authorize('applicant_create');
 
         $requirements = Requirement::all();
 
@@ -278,64 +281,59 @@ class CreateApplicant extends Component
 
 
 
-    public function saveApplicant()
+    public function saveApplicant(SaveApplicantAttachmentRequirmentAction $saveAttachementRequirements)
     {
-        // $application_info = $this->validate($this->validationRules[2]);
-        // $spouse_info = $this->validate($this->validationRules[3]);
 
-        // $applicant_info = ApplicantsInfo::create($application_info['applicant_info']);
-        // $spouse = Spouse::create($spouse_info['spouse_info']);
+        $application_info = $this->validate($this->validationRules[2]);
+        $spouse_info = $this->validate($this->validationRules[3]);
 
-        // $applicant =  Applicant::create([
-        //     'applicant_info_id' => $applicant_info->id,
-        //     'spouse_id' => $spouse->id,
-        //     'housing_unit_id' => $this->housing_info['lot'],
-        // ]);
+        $applicant_info = ApplicantsInfo::create($application_info['applicant_info']);
+        $spouse = Spouse::create($spouse_info['spouse_info']);
 
-        // foreach ($this->familyCompositions as $family) {
-        //     FamilyComposition::create([
-        //         'applicant_id' => $applicant->id,
-        //         'first_name' => $family['first_name'],
-        //         'middle_name' => $family['middle_name'],
-        //         'last_name' => $family['last_name'],
-        //         'gender' => $family['gender'],
-        //         'relation' => $family['relation'],
-        //         'civil_status' => $family['civil_status'],
-        //         'age' => $family['age'],
-        //         'source_of_income' => $family['source_of_income'],
-        //     ]);
-        // }
+        $applicant =  Applicant::create([
+            'applicant_info_id' => $applicant_info->id,
+            'spouse_id' => $spouse->id,
+            'housing_unit_id' => $this->housing_info['lot'],
+        ]);
 
-        // foreach ($this->selectedRequirements as $requirement) {
-        //     ApplicantsRequirments::create([
-        //         'applicant_id' => $applicant->id,
-        //         'requirement_id' => $requirement,
-        //     ]);
-        // }
-
-        foreach ($this->requirementPhoto as $photo) {
-            $requirement = 1 . '.' . $photo->getClientOriginalExtension();
-            $photo->move(public_path('images/requirement'), $requirement);
-
-            ApplicantRequirementImage::create([
-                'applicant_id' => 1,
-                'requirement_image' => $requirement,
-
+        foreach ($this->familyCompositions as $family) {
+            FamilyComposition::create([
+                'applicant_id' => $applicant->id,
+                'first_name' => $family['first_name'],
+                'middle_name' => $family['middle_name'],
+                'last_name' => $family['last_name'],
+                'gender' => $family['gender'],
+                'relation' => $family['relation'],
+                'civil_status' => $family['civil_status'],
+                'age' => $family['age'],
+                'source_of_income' => $family['source_of_income'],
             ]);
         }
-        // foreach ($this->requirementPhoto as $photo) {
-        //     $requirement =  $applicant->id . '-' . $applicant_info->last_name . '.' . $photo->getClientOriginalExtension();
-        //     $photo->move(public_path('images/requirement'), $requirement);
 
-        //     ApplicantRequirementImage::create([
-        //         'applicant_id' => $applicant->id,
-        //         'requirement_image' => $requirement,
+        foreach ($this->selectedRequirements as $requirement) {
+            ApplicantsRequirments::create([
+                'applicant_id' => $applicant->id,
+                'requirement_id' => $requirement,
+            ]);
+        }
 
-        //     ]);
-        // }
+        $saveAttachementRequirements->execute($this->requirementPhoto, $applicant->id);
 
+        activity()
+            ->causedBy(auth()->user()->id)
+            ->event('Applicant Created')
+            ->log('Updated Profile');
 
         $this->emit('showToastNotification', ['type' => 'success', 'message' => 'Housing Unit created successfully!', 'title' => 'Success']);
         return redirect()->route('applicants.index');
+    }
+
+    public function updatedRequirementPhoto()
+    {
+
+        $this->validate([
+            'requirementPhoto' => 'image|mimetypes:jpeg,png,jpg,gif|max:5048|nullable',
+
+        ]);
     }
 }

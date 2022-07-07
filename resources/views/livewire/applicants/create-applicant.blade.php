@@ -377,947 +377,965 @@
                     {{ $familyMember->onEachSide(0)->links() }}
                 </div>
             </div>
+        </div>
+        @endif
 
-            @endif
-
-            @if ($counter == 2)
-            <p class="text-base font-medium">Basic Info</p>
-            <div class="grid grid-cols-3 gap-6 ">
-                <div class="mt-4">
-                    <div class="relative">
-                        <x-floating-input type="text" id="first_name" name="first_name" class="block w-full border-2 "
-                            wire:model.debounce="applicant_info.first_name" required />
-                        <x-floating-label for="first_name" :value="__('First Name')" />
+        <form wire:submit.prevent='saveApplicant'>
+            @csrf
+            {{-- <form wire:submit.prevent='saveApplication' method="POST"> --}}
+                @if ($counter == 2)
+                <p class="text-base font-medium">Basic Info</p>
+                <div class="grid grid-cols-3 gap-6 ">
+                    <div class="mt-4">
+                        <div class="relative">
+                            <x-floating-input type="text" id="first_name" name="first_name"
+                                class="block w-full border-2 " wire:model.debounce="applicant_info.first_name"
+                                required />
+                            <x-floating-label for="first_name" :value="__('First Name')" />
+                        </div>
+                        @error('applicant_info.first_name')
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
                     </div>
-                    @error('applicant_info.first_name')
-                    <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
-                </div>
 
-                <div class="mt-4">
-                    <div class="relative">
-                        <x-floating-input type="text" id="middle_name" name="middle_name" :value="old('middle_name')"
-                            wire:model.debounce="applicant_info.middle_name" />
-                        <x-floating-label for="middle_name" :value="__('Middle Name')" />
+                    <div class="mt-4">
+                        <div class="relative">
+                            <x-floating-input type="text" id="middle_name" name="middle_name"
+                                :value="old('middle_name')" wire:model.debounce="applicant_info.middle_name" />
+                            <x-floating-label for="middle_name" :value="__('Middle Name')" />
+                        </div>
+                        @error('applicant_info.middle_name')
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
                     </div>
-                    @error('applicant_info.middle_name')
-                    <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
-                </div>
 
-                <div class="mt-4">
-                    <div class="relative">
-                        <x-floating-input type="text" id="last_name" name="last_name" :value="old('last_name')"
-                            wire:model.debounce="applicant_info.last_name" required />
-                        <x-floating-label for="last_name" :value="__('Last Name')" />
+                    <div class="mt-4">
+                        <div class="relative">
+                            <x-floating-input type="text" id="last_name" name="last_name" :value="old('last_name')"
+                                wire:model.debounce="applicant_info.last_name" required />
+                            <x-floating-label for="last_name" :value="__('Last Name')" />
+                        </div>
+                        @error('applicant_info.last_name')
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
                     </div>
-                    @error('applicant_info.last_name')
-                    <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
-                </div>
 
-                <div class="mt-4">
-                    <div class="relative">
-                        <x-floating-input type="text" id="suffix" :value="old('suffix')" name="suffix"
-                            wire:model.debounce="applicant_info.suffix" />
-                        <x-floating-label for="suffix" :value="__('Suffix')" />
+                    <div class="mt-4">
+                        <div class="relative">
+                            <x-floating-input type="text" id="suffix" :value="old('suffix')" name="suffix"
+                                wire:model.debounce="applicant_info.suffix" />
+                            <x-floating-label for="suffix" :value="__('Suffix')" />
+                        </div>
+                        @error('applicant_info.suffix')
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
                     </div>
-                    @error('applicant_info.suffix')
-                    <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
-                </div>
 
-                <div class="mt-4">
-                    <select wire:model.debounce="applicant_info.gender" id="gender" name="gender" class="'block p-3 w-full text-sm
-                text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600
-                dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
-                        <option value="" selected>
-                            Select a Gender
-                        </option>
-                        <option value="Male">
-                            Male
-                        </option>
+                    <div class="mt-4">
+                        <select wire:model.debounce="applicant_info.gender" id="gender" name="gender" class="'block p-3 w-full text-sm
+                                text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600
+                                dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+                            <option value="" selected>
+                                Select a Gender
+                            </option>
+                            <option value="Male">
+                                Male
+                            </option>
 
-                        <option value="Female">
-                            Female
-                        </option>
+                            <option value="Female">
+                                Female
+                            </option>
 
-                        <option value="Other">
-                            Other
-                        </option>
+                            <option value="Other">
+                                Other
+                            </option>
 
-                    </select>
-                    @error('applicant_info.gender')
-                    <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
-                </div>
-
-
-                <div class="mt-4">
-                    <div class="relative">
-
-                        <x-floating-input datepicker type="date" id="birth_date" name="birth_date"
-                            :value="old('birth_date')" required wire:model.debounce="applicant_info.birth_date" />
-                        <x-floating-label for="birth_date" :value="__('Birthday')" />
+                        </select>
+                        @error('applicant_info.gender')
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
                     </div>
-                    @error('applicant_info.birth_date')
-                    <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
-                </div>
 
-                <div class="mt-4">
-                    <div class="relative">
-                        <x-floating-input type="text" id="place_of_birth" name="place_of_birth"
-                            :value="old('place_of_birth')" required
-                            wire:model.debounce="applicant_info.place_of_birth" />
-                        <x-floating-label for="place_of_birth" :value="__('Place of Birth')" />
+
+                    <div class="mt-4">
+                        <div class="relative">
+
+                            <x-floating-input datepicker type="date" id="birth_date" name="birth_date"
+                                :value="old('birth_date')" required wire:model.debounce="applicant_info.birth_date" />
+                            <x-floating-label for="birth_date" :value="__('Birthday')" />
+                        </div>
+                        @error('applicant_info.birth_date')
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
                     </div>
-                    @error('applicant_info.place_of_birth')
-                    <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
-                </div>
 
-                <div class="mt-4">
-                    <select wire:model.debounce="applicant_info.civil_status" name="civil_status" id="civil_status"
-                        class="'block p-3 w-full text-sm
+                    <div class="mt-4">
+                        <div class="relative">
+                            <x-floating-input type="text" id="place_of_birth" name="place_of_birth" required
+                                wire:model.debounce="applicant_info.place_of_birth" />
+                            <x-floating-label for="place_of_birth" :value="__('Place of Birth')" />
+                        </div>
+                        @error('applicant_info.place_of_birth')
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="mt-4">
+                        <select wire:model.debounce="applicant_info.civil_status" name="civil_status" id="civil_status"
+                            class="'block p-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600
+                                        dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+                            <option value="" selected>
+                                --Civil Status
+                            </option>
+                            <option value="Single">
+                                Single
+                            </option>
+
+                            <option value="Married">
+                                Married
+                            </option>
+
+                            <option value="Widowed">
+                                Widowed
+                            </option>
+                            <option value="Divorced">
+                                Divorced
+                            </option>
+                        </select>
+                        @error('applicant_info.civil_status')
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
+                    </div>
+
+
+
+                    <div class="mt-4">
+                        <div class="relative">
+                            <x-floating-input type="text" id="citizenship" name="citizenship"
+                                :value="old('citizenship')" required wire:model.debounce="applicant_info.citizenship" />
+                            <x-floating-label for="citizenship" :value="__('Citizenship')" />
+                        </div>
+                        @error('applicant_info.citizenship')
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="mt-4">
+                        <div class="relative">
+                            <x-floating-input wire:model.debounce="applicant_info.brgy_origin" type="text"
+                                id="brgy_origin" name="brgy_origin" required />
+                            <x-floating-label for="brgy_origin" :value="__('Residence/Address')" />
+                        </div>
+                        @error('applicant_info.brgy_origin')
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="mt-4">
+                        <div class="relative">
+                            <x-floating-input wire:model.debounce="applicant_info.contact" type="text" id="contact"
+                                name="contact" :value="old('contact')" required />
+                            <x-floating-label for="contact" :value="__('Contact')" />
+                        </div>
+                        @error('applicant_info.contact')
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="mt-4">
+                        <div class="relative">
+                            <x-floating-input wire:model.debounce="applicant_info.office" type="text" id="office"
+                                name="office" :value="old('office')" required />
+                            <x-floating-label for="office" :value="__('Office')" />
+                        </div>
+                        @error('applicant_info.office')
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="mt-4">
+                        <div class="relative">
+                            <x-floating-input wire:model.debounce="applicant_info.tin_no" type="text" id="tin_no"
+                                name="tin_no" :value="old('tin_no')" required />
+                            <x-floating-label for="tin_no" :value="__('TIN No.')" />
+                        </div>
+                        @error('applicant_info.tin_no')
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="mt-4">
+                        <div class="relative">
+                            <x-floating-input wire:model.debounce="applicant_info.govt_id" type="text" id="govt_id"
+                                name="govt_id" :value="old('govt_id')" required />
+                            <x-floating-label for="govt_id" :value="__('GSIS/SSS/Pag-ibig No.')" />
+                        </div>
+                        @error('applicant_info.govt_id')
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
+                    </div>
+
+
+                    <div class="mt-4">
+                        <div class="relative">
+                            <x-floating-input wire:model.debounce="applicant_info.income_per_month" type="text"
+                                id="income_per_month" name="income_per_month" :value="old('income_per_month')"
+                                required />
+                            <x-floating-label for="income_per_month" :value="__('Income per Month')" />
+                        </div>
+                        @error('applicant_info.income_per_month')
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
+                    </div>
+                </div>
+                @endif
+
+                @if ($counter == 3)
+                <p class="mt-5 text-base font-medium">Spouse Info</p>
+                <div class="grid grid-cols-3 gap-6 ">
+                    <div class="mt-4">
+                        <div class="relative">
+                            <x-floating-input wire:model.debounce="spouse_info.spouse_first_name" type="text"
+                                id="spouse_first_name" name="spouse_first_name" class="block w-full border-2 "
+                                required />
+                            <x-floating-label for="spouse_first_name" :value="__('Spouse First Name')" />
+                        </div>
+                        @error('spouse_info.spouse_first_name')
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="mt-4">
+                        <div class="relative">
+                            <x-floating-input wire:model.debounce="spouse_info.spouse_middle_name" type="text"
+                                id="spouse_middle_name" name="spouse_middle_name" />
+                            <x-floating-label for="spouse_middle_name" :value="__('Spouse Middle Name')" />
+                        </div>
+                        @error('spouse_info.spouse_middle_name')
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="mt-4">
+                        <div class="relative">
+                            <x-floating-input wire:model.debounce="spouse_info.spouse_last_name" type="text"
+                                id="sspouse_last_name" name="sspouse_last_name" required />
+                            <x-floating-label for="sspouse_last_name" :value="__('Spouse Last Name')" />
+                        </div>
+                        @error('spouse_info.spouse_last_name')
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="mt-4">
+
+                        <select wire:model.debounce="spouse_info.spouse_gender" name="spouse_gender" id="spouse_gender"
+                            class="'block p-3 w-full text-sm
                  text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600
                  dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
-                        <option value="" selected>
-                            --Civil Status
-                        </option>
-                        <option value="Single">
-                            Single
-                        </option>
+                            <option hidden>
+                                Select Gender
+                            </option>
+                            <option value="Male">
+                                Male
+                            </option>
 
-                        <option value="Married">
-                            Married
-                        </option>
+                            <option value="Female">
+                                Female
+                            </option>
 
-                        <option value="Widowed">
-                            Widowed
-                        </option>
-                        <option value="Divorced">
-                            Divorced
-                        </option>
-                    </select>
-                    @error('applicant_info.civil_status')
-                    <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
-                </div>
+                            <option value="Other">
+                                Other
+                            </option>
 
-
-
-                <div class="mt-4">
-                    <div class="relative">
-                        <x-floating-input type="text" id="citizenship" name="citizenship" :value="old('citizenship')"
-                            required wire:model.debounce="applicant_info.citizenship" />
-                        <x-floating-label for="citizenship" :value="__('Citizenship')" />
+                        </select>
+                        @error('spouse_info.spouse_gender')
+                        <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
                     </div>
-                    @error('applicant_info.citizenship')
-                    <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
-                </div>
 
-                <div class="mt-4">
-                    <div class="relative">
-                        <x-floating-input wire:model.debounce="applicant_info.brgy_origin" type="text" id="brgy_origin"
-                            name="brgy_origin" :value="old('brgy_origin')" required />
-                        <x-floating-label for="brgy_origin" :value="__('Residence/Address')" />
-                    </div>
-                    @error('applicant_info.brgy_origin')
-                    <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
-                </div>
-
-                <div class="mt-4">
-                    <div class="relative">
-                        <x-floating-input wire:model.debounce="applicant_info.contact" type="text" id="contact"
-                            name="contact" :value="old('contact')" required />
-                        <x-floating-label for="contact" :value="__('Contact')" />
-                    </div>
-                    @error('applicant_info.contact')
-                    <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
-                </div>
-
-                <div class="mt-4">
-                    <div class="relative">
-                        <x-floating-input wire:model.debounce="applicant_info.office" type="text" id="office"
-                            name="office" :value="old('office')" required />
-                        <x-floating-label for="office" :value="__('Office')" />
-                    </div>
-                    @error('applicant_info.office')
-                    <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
-                </div>
-
-                <div class="mt-4">
-                    <div class="relative">
-                        <x-floating-input wire:model.debounce="applicant_info.tin_no" type="text" id="tin_no"
-                            name="tin_no" :value="old('tin_no')" required />
-                        <x-floating-label for="tin_no" :value="__('TIN No.')" />
-                    </div>
-                    @error('applicant_info.tin_no')
-                    <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
-                </div>
-
-                <div class="mt-4">
-                    <div class="relative">
-                        <x-floating-input wire:model.debounce="applicant_info.govt_id" type="text" id="govt_id"
-                            name="govt_id" :value="old('govt_id')" required />
-                        <x-floating-label for="govt_id" :value="__('GSIS/SSS/Pag-ibig No.')" />
-                    </div>
-                    @error('applicant_info.govt_id')
-                    <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
-                </div>
-
-
-                <div class="mt-4">
-                    <div class="relative">
-                        <x-floating-input wire:model.debounce="applicant_info.income_per_month" type="text"
-                            id="income_per_month" name="income_per_month" :value="old('income_per_month')" required />
-                        <x-floating-label for="income_per_month" :value="__('Income per Month')" />
-                    </div>
-                    @error('applicant_info.income_per_month')
-                    <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
-                </div>
-            </div>
-            @endif
-
-            @if ($counter == 3)
-            <p class="mt-5 text-base font-medium">Spouse Info</p>
-            <div class="grid grid-cols-3 gap-6 ">
-                <div class="mt-4">
-                    <div class="relative">
-                        <x-floating-input wire:model.debounce="spouse_info.spouse_first_name" type="text"
-                            id="spouse_info.spouse_first_name" name="spouse_info.spouse_first_name"
-                            :value="old('spouse_info.spouse_first_name')" class="block w-full border-2 " required />
-                        <x-floating-label for="spouse_info.spouse_first_name" :value="__('Spouse First Name')" />
-                    </div>
-                    @error('spouse_info.spouse_first_name')
-                    <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
-                </div>
-
-                <div class="mt-4">
-                    <div class="relative">
-                        <x-floating-input wire:model.debounce="spouse_info.spouse_middle_name" type="text"
-                            id="spouse_info.spouse_middle_name" name="spouse_info.spouse_middle_name"
-                            :value="old('spouse_info.spouse_middle_name')" />
-                        <x-floating-label for="spouse_info.spouse_middle_name" :value="__('Spouse Middle Name')" />
-                    </div>
-                    @error('spouse_info.spouse_middle_name')
-                    <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
-                </div>
-
-                <div class="mt-4">
-                    <div class="relative">
-                        <x-floating-input wire:model.debounce="spouse_info.spouse_last_name" type="text"
-                            id="spouse_info.spouse_last_name" name="spouse_info.spouse_last_name"
-                            :value="old('spouse_info.spouse_last_name')" required />
-                        <x-floating-label for="spouse_info.spouse_last_name" :value="__('Spouse Last Name')" />
-                    </div>
-                    @error('spouse_info.spouse_last_name')
-                    <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
-                </div>
-
-                <div class="mt-4">
-
-                    <select wire:model.debounce="spouse_info.spouse_gender" name="spouse_info.spouse_gender"
-                        id="spouse_info.spouse_gender" class="'block p-3 w-full text-sm
-                 text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600
-                 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
-                        <option hidden>
-                            Select Gender
-                        </option>
-                        <option value="Male">
-                            Male
-                        </option>
-
-                        <option value="Female">
-                            Female
-                        </option>
-
-                        <option value="Other">
-                            Other
-                        </option>
-
-                    </select>
-                    @error('spouse_info.spouse_gender')
-                    <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
-                </div>
-
-                <div class="mt-4">
-                    <div class="relative">
-                        <x-floating-input wire:model.debounce="spouse_info.spouse_birth_date" type="date"
-                            id="spouse_info.spouse_birth_date" name="spouse_info.spouse_birth_date"
-                            :value="old('spouse_info.spouse_birth_date')" required />
-                        <x-floating-label for="spouse_info.spouse_birth_date" :value="__('Birthday')" />
-                    </div>
-                    @error('spouse_info.spouse_birth_date')
-                    <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
-                </div>
-
-                <div class="mt-4">
-                    <div class="relative">
-                        <x-floating-input wire:model.debounce="spouse_info.spouse_place_of_birth" type="text"
-                            id="spouse_info.spouse_place_of_birth" name="spouse_info.spouse_place_of_birth"
-                            :value="old('spouse_info.spouse_place_of_birth')" required />
-                        <x-floating-label for="spouse_info.spouse_place_of_birth" :value="__('Place of Birth')" />
-                    </div>
-                    @error('spouse_info.spouse_place_of_birth')
-                    <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
-                </div>
-            </div>
-
-            <p class="mt-5 text-base font-medium">Family Composition</p>
-            <div class="pb-5 border-b border-gray-200">
-                @foreach ($familyCompositions as $index => $familyComposition)
-                <div class="border-b-2 pb-5">
-                    <div class="grid grid-cols-3 gap-6 ">
-                        <div class="mt-4">
-                            <div class="relative">
-                                <x-floating-input wire:model.debounce="familyCompositions.{{$index}}.first_name"
-                                    type="text" id="familyCompositions.{{$index}}.first_name"
-                                    name="familyCompositions.{{$index}}.first_name" class="block w-full border-2 "
-                                    required />
-                                <x-floating-label for="familyCompositions.{{$index}}.first_name"
-                                    :value="__('First Name')" />
-                            </div>
-                            @error('familyCompositions.{{$index}}.first_name')
-                            <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
-                                $message
-                                }}</p>
-                            @enderror
+                    <div class="mt-4">
+                        <div class="relative">
+                            <x-floating-input wire:model.debounce="spouse_info.spouse_birth_date" type="date"
+                                id="spouse_birth_date" name="spouse_birth_date" required />
+                            <x-floating-label for="spouse_info.spouse_birth_date" :value="__('Birthday')" />
                         </div>
+                        @error('spouse_info.spouse_birth_date')
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
+                    </div>
 
-                        <div class="mt-4">
-                            <div class="relative">
-                                <x-floating-input wire:model.debounce="familyCompositions.{{$index}}.middle_name"
-                                    type="text" id="familyCompositions.{{$index}}.middle_name"
-                                    name="familyCompositions.{{$index}}.middle_name" class="block w-full border-2 "
-                                    required />
-                                <x-floating-label for="familyCompositions.{{$index}}.middle_name"
-                                    :value="__('Middle Name')" />
-                            </div>
-                            @error('familyCompositions.{{$index}}.middle_name')
-                            <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
-                                $message
-                                }}</p>
-                            @enderror
+                    <div class="mt-4">
+                        <div class="relative">
+                            <x-floating-input wire:model.debounce="spouse_info.spouse_place_of_birth" type="text"
+                                id="spouse_place_of_birth" name="spouse_place_of_birth" required />
+                            <x-floating-label for="spouse_info.spouse_place_of_birth" :value="__('Place of Birth')" />
                         </div>
+                        @error('spouse_info.spouse_place_of_birth')
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
+                    </div>
+                </div>
 
-                        <div class="mt-4">
-                            <div class="relative">
-                                <x-floating-input wire:model.debounce="familyCompositions.{{$index}}.last_name"
-                                    type="text" id="familyCompositions.{{$index}}.last_name"
-                                    name="familyCompositions.{{$index}}.last_name" class="block w-full border-2 "
-                                    required />
-                                <x-floating-label for="familyCompositions.{{$index}}.last_name"
-                                    :value="__('Last Name')" />
+                <p class="mt-5 text-base font-medium">Family Composition</p>
+                <div class="pb-5 border-b border-gray-200">
+                    @foreach ($familyCompositions as $index => $familyComposition)
+                    <div class="border-b-2 pb-5">
+                        <div class="grid grid-cols-3 gap-6 ">
+                            <div class="mt-4">
+                                <div class="relative">
+                                    <x-floating-input wire:model.debounce="familyCompositions.{{$index}}.first_name"
+                                        type="text" id="familyCompositions.{{$index}}.first_name"
+                                        name="familyCompositions.{{$index}}.first_name" class="block w-full border-2 "
+                                        required />
+                                    <x-floating-label for="familyCompositions.{{$index}}.first_name"
+                                        :value="__('First Name')" />
+                                </div>
+                                @error('familyCompositions.{{$index}}.first_name')
+                                <p id="outlined_error_help"
+                                    class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                                    $message
+                                    }}</p>
+                                @enderror
                             </div>
-                            @error('familyCompositions.{{$index}}.last_name')
-                            <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
-                                $message
-                                }}</p>
-                            @enderror
-                        </div>
 
-                        <div class="mt-4">
+                            <div class="mt-4">
+                                <div class="relative">
+                                    <x-floating-input wire:model.debounce="familyCompositions.{{$index}}.middle_name"
+                                        type="text" id="familyCompositions.{{$index}}.middle_name"
+                                        name="familyCompositions.{{$index}}.middle_name" class="block w-full border-2 "
+                                        required />
+                                    <x-floating-label for="familyCompositions.{{$index}}.middle_name"
+                                        :value="__('Middle Name')" />
+                                </div>
+                                @error('familyCompositions.{{$index}}.middle_name')
+                                <p id="outlined_error_help"
+                                    class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                                    $message
+                                    }}</p>
+                                @enderror
+                            </div>
 
-                            <select wire:model.debounce="familyCompositions.{{$index}}.gender"
-                                name="familyCompositions.{{$index}}.gender" id="familyCompositions.{{$index}}.gender"
-                                class="'block p-3 w-full text-sm
+                            <div class="mt-4">
+                                <div class="relative">
+                                    <x-floating-input wire:model.debounce="familyCompositions.{{$index}}.last_name"
+                                        type="text" id="familyCompositions.{{$index}}.last_name"
+                                        name="familyCompositions.{{$index}}.last_name" class="block w-full border-2 "
+                                        required />
+                                    <x-floating-label for="familyCompositions.{{$index}}.last_name"
+                                        :value="__('Last Name')" />
+                                </div>
+                                @error('familyCompositions.{{$index}}.last_name')
+                                <p id="outlined_error_help"
+                                    class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                                    $message
+                                    }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="mt-4">
+
+                                <select wire:model.debounce="familyCompositions.{{$index}}.gender"
+                                    name="familyCompositions.{{$index}}.gender"
+                                    id="familyCompositions.{{$index}}.gender" class="'block p-3 w-full text-sm
                          text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600
                          dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
-                                <option hidden>
-                                    Select Gender
-                                </option>
-                                <option value="Male">
-                                    Male
-                                </option>
+                                    <option hidden>
+                                        Select Gender
+                                    </option>
+                                    <option value="Male">
+                                        Male
+                                    </option>
 
-                                <option value="Female">
-                                    Female
-                                </option>
+                                    <option value="Female">
+                                        Female
+                                    </option>
 
-                                <option value="Other">
-                                    Other
-                                </option>
+                                    <option value="Other">
+                                        Other
+                                    </option>
 
-                            </select>
-                            @error('familyCompositions.{{$index}}.gender')
-                            <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
-                                $message
-                                }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="mt-4">
-                            <div class="relative">
-                                <x-floating-input wire:model.debounce="familyCompositions.{{$index}}.relation"
-                                    type="text" id="familyCompositions.{{$index}}.relation"
-                                    name="familyCompositions.{{$index}}.relation" class="block w-full border-2 "
-                                    required />
-                                <x-floating-label for="familyCompositions.{{$index}}.relation"
-                                    :value="__('Relation')" />
+                                </select>
+                                @error('familyCompositions.{{$index}}.gender')
+                                <p id="outlined_error_help"
+                                    class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                                    $message
+                                    }}</p>
+                                @enderror
                             </div>
-                            @error('familyCompositions.{{$index}}.relation')
-                            <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
-                                $message
-                                }}</p>
-                            @enderror
-                        </div>
+
+                            <div class="mt-4">
+                                <div class="relative">
+                                    <x-floating-input wire:model.debounce="familyCompositions.{{$index}}.relation"
+                                        type="text" id="familyCompositions.{{$index}}.relation"
+                                        name="familyCompositions.{{$index}}.relation" class="block w-full border-2 "
+                                        required />
+                                    <x-floating-label for="familyCompositions.{{$index}}.relation"
+                                        :value="__('Relation')" />
+                                </div>
+                                @error('familyCompositions.{{$index}}.relation')
+                                <p id="outlined_error_help"
+                                    class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                                    $message
+                                    }}</p>
+                                @enderror
+                            </div>
 
 
-                        <div class="mt-4">
+                            <div class="mt-4">
 
-                            <select wire:model.debounce="familyCompositions.{{$index}}.civil_status"
-                                name="familyCompositions.{{$index}}.civil_status"
-                                id="familyCompositions.{{$index}}.civil_status" class="'block p-3 w-full text-sm
+                                <select wire:model.debounce="familyCompositions.{{$index}}.civil_status"
+                                    name="familyCompositions.{{$index}}.civil_status"
+                                    id="familyCompositions.{{$index}}.civil_status" class="'block p-3 w-full text-sm
                          text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600
                          dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
-                                <option value="Single">
-                                    Single
-                                </option>
+                                    <option value="Single">
+                                        Single
+                                    </option>
 
-                                <option value="Married">
-                                    Married
-                                </option>
+                                    <option value="Married">
+                                        Married
+                                    </option>
 
-                                <option value="Widowed">
-                                    Widowed
-                                </option>
-                                <option value="Divorced">
-                                    Divorced
-                                </option>
-                            </select>
-                            @error('familyCompositions.{{$index}}.civil_status')
-                            <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
-                                $message
-                                }}</p>
-                            @enderror
-                        </div>
-
-
-
-                        <div class="mt-4">
-                            <div class="relative">
-                                <x-floating-input wire:model.debounce="familyCompositions.{{$index}}.age" type="text"
-                                    id="familyCompositions.{{$index}}.age" name="familyCompositions.{{$index}}.age"
-                                    class="block w-full border-2 " required />
-                                <x-floating-label for="familyCompositions.{{$index}}.age" :value="__('Age')" />
-                            </div>
-                            @error('familyCompositions.{{$index}}.age')
-                            <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
-                                $message
-                                }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="mt-4">
-                            <div class="relative">
-                                <x-floating-input wire:model.debounce="familyCompositions.{{$index}}.source_of_income"
-                                    type="text" id="familyCompositions.{{$index}}.source_of_income"
-                                    name="familyCompositions.{{$index}}.source_of_income" class="block w-full border-2 "
-                                    required />
-                                <x-floating-label for="familyCompositions.{{$index}}.source_of_income"
-                                    :value="__('Source of Income')" />
-                            </div>
-                            @error('familyCompositions.{{$index}}.source_of_income')
-                            <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
-                                $message
-                                }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="mt-4">
-                            <div class="relative">
-                                <x-button.text-button btnType="error" wire:click='removeFamily({{ $index }})'>Remove
-                                </x-button.text-button>
+                                    <option value="Widowed">
+                                        Widowed
+                                    </option>
+                                    <option value="Divorced">
+                                        Divorced
+                                    </option>
+                                </select>
+                                @error('familyCompositions.{{$index}}.civil_status')
+                                <p id="outlined_error_help"
+                                    class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                                    $message
+                                    }}</p>
+                                @enderror
                             </div>
 
-                        </div>
 
+
+                            <div class="mt-4">
+                                <div class="relative">
+                                    <x-floating-input wire:model.debounce="familyCompositions.{{$index}}.age"
+                                        type="text" id="familyCompositions.{{$index}}.age"
+                                        name="familyCompositions.{{$index}}.age" class="block w-full border-2 "
+                                        required />
+                                    <x-floating-label for="familyCompositions.{{$index}}.age" :value="__('Age')" />
+                                </div>
+                                @error('familyCompositions.{{$index}}.age')
+                                <p id="outlined_error_help"
+                                    class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                                    $message
+                                    }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="mt-4">
+                                <div class="relative">
+                                    <x-floating-input
+                                        wire:model.debounce="familyCompositions.{{$index}}.source_of_income" type="text"
+                                        id="familyCompositions.{{$index}}.source_of_income"
+                                        name="familyCompositions.{{$index}}.source_of_income"
+                                        class="block w-full border-2 " required />
+                                    <x-floating-label for="familyCompositions.{{$index}}.source_of_income"
+                                        :value="__('Source of Income')" />
+                                </div>
+                                @error('familyCompositions.{{$index}}.source_of_income')
+                                <p id="outlined_error_help"
+                                    class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                                    $message
+                                    }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="mt-4">
+                                <div class="relative">
+                                    <x-button.text-button btnType="error" wire:click='removeFamily({{ $index }})'>Remove
+                                    </x-button.text-button>
+                                </div>
+
+                            </div>
+
+                        </div>
                     </div>
-                </div>
-                @endforeach
+                    @endforeach
 
-                <div class="flex items-center justify-end ">
-                    <button wire:click.prevent="addFamily()" class="ml-3 mt-3 cursor-pointer px-4 py-2 text-sm font-medium leading-5
+                    <div class="flex items-center justify-end ">
+                        <button wire:click.prevent="addFamily()" class="ml-3 mt-3 cursor-pointer px-4 py-2 text-sm font-medium leading-5
                          text-center
                          text-white transition-colors duration-150 bg-gray-800 border border-transparent rounded-lg
                          active:bg-purple-600
                          hover:bg-purple-700 focus:outline-none focus:ring">
-                        {{ __('Add Family Member') }}
-                    </button>
-                </div>
-            </div>
-            @endif
-
-            @if ($counter == 4)
-            <p class="text-base font-medium">Housing Project</p>
-            <div class="grid grid-cols-4 gap-6 mb-5">
-
-                <div class="mt-4">
-                    <select wire:model.debounce="housing_info.housing_project_id" name="housing_project_id"
-                        id="housing_project_id" class="'block p-3 w-full text-sm
-                 text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600
-                 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
-                        <option value="" selected>
-                            --Select Housing Project--
-
-                        </option>
-                        @foreach ($housing_projects as $housing)
-                        <option value="{{ $housing->id }}">
-                            {{ $housing->project }}
-                        </option>
-                        @endforeach
-                    </select>
-                    @error('housing_info.housing_project_id')
-                    <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
-                </div>
-
-
-                <div class="mt-4">
-                    <select wire:model.debounce="housing_info.block" name="block_no" id="block_no" class="'block p-3 w-full text-sm
-             text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600
-             dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
-                        <option value="" selected>
-                            --Select Housing Block--
-                        </option>
-                        @foreach ($blocks as $block)
-                        <option value="{{ $block->block_no }}">
-                            {{ $block->block_no }}
-                        </option>
-                        @endforeach
-                    </select>
-                    @error('housing_info.block')
-                    <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
-                </div>
-
-
-                <div class="mt-4">
-                    <select wire:model.debounce="housing_info.lot" name="lot_no" id="lot_no" class="'block p-3 w-full text-sm
-             text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600
-             dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
-                        <option value="" selected>
-                            --Select Housing Lot--
-                        </option>
-                        @foreach ($lots as $lot)
-                        <option value="{{ $lot->id }}">
-                            {{ $lot->lot_no }}
-                        </option>
-                        @endforeach
-                    </select>
-                    @error('housing_info.lot')
-                    <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
-                </div>
-
-
-
-                <div class="mt-4">
-                    <div class="relative">
-                        <x-floating-input wire:model.debounce="housing_info.phase" type="text" id="phase_no"
-                            name="phase_no" class="block w-full border-2 " required />
-                        <x-floating-label for="phase_no" :value="__('Phase No.')" />
+                            {{ __('Add Family Member') }}
+                        </button>
                     </div>
-                    @error('housing_info.phase')
-                    <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
+                </div>
+                @endif
+
+                @if ($counter == 4)
+                <p class="text-base font-medium">Housing Project</p>
+                <div class="grid grid-cols-4 gap-6 mb-5">
+                    <div class="mt-4">
+                        <select wire:model.debounce="housing_info.housing_project_id" name="housing_project_id"
+                            id="housing_project_id" class="'block p-3 w-full text-sm file:text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600
+                                dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+                            <option value="" selected>
+                                --Select Housing Project--
+
+                            </option>
+                            @foreach ($housing_projects as $housing)
+                            <option value="{{ $housing->id }}">
+                                {{ $housing->project }}
+                            </option>
+                            @endforeach
+                        </select>
+                        @error('housing_info.housing_project_id')
+                        <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
+                    </div>
+
+
+                    <div class="mt-4">
+                        <select wire:model.debounce="housing_info.block" name="block_no" id="block_no" class="'block p-3 w-full text-sm
+                            text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600
+                            dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+                            <option value="" selected>
+                                --Select Housing Block--
+                            </option>
+                            @foreach ($blocks as $block)
+                            <option value="{{ $block->block_no }}">
+                                {{ $block->block_no }}
+                            </option>
+                            @endforeach
+                        </select>
+                        @error('housing_info.block')
+                        <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
+                    </div>
+
+
+                    <div class="mt-4">
+                        <select wire:model.debounce="housing_info.lot" name="lot_no" id="lot_no" class="'block p-3 w-full text-sm
+                                text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600
+                                dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+                            <option value="" selected>
+                                --Select Housing Lot--
+                            </option>
+                            @foreach ($lots as $lot)
+                            <option value="{{ $lot->id }}">
+                                {{ $lot->lot_no }}
+                            </option>
+                            @endforeach
+                        </select>
+                        @error('housing_info.lot')
+                        <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
+                    </div>
+
+
+
+                    <div class="mt-4">
+                        <div class="relative">
+                            <x-floating-input wire:model.debounce="housing_info.phase" type="text" id="phase_no"
+                                name="phase_no" class="block w-full border-2 " required />
+                            <x-floating-label for="phase_no" :value="__('Phase No.')" />
+                        </div>
+                        @error('housing_info.phase')
+                        <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
+                    </div>
+
                 </div>
 
-            </div>
-
-            <p class="text-base font-medium">Requirements</p>
-            <div class="grid grid-cols-4 gap-6 mb-5">
-                @foreach ($requirements as $requirement)
-                <div class="flex items-center mt-1">
-                    <input wire:model.debounce="selectedRequirements" id="checkbox-{{ $requirement->id }}"
-                        name="requirements" type="checkbox" value="{{ $requirement->id }}"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="checkbox-{{ $requirement->id }}"
-                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                        {{ $requirement->description }}
-                    </label>
+                <p class="text-base font-medium">Requirements</p>
+                <div class="grid grid-cols-4 gap-6 mb-5">
+                    @foreach ($requirements as $requirement)
+                    <div class="flex items-center mt-1">
+                        <input wire:model.debounce="selectedRequirements" id="requirements-{{ $requirement->id }}"
+                            name="requirements-{{ $requirement->id }}" type="checkbox" value="{{ $requirement->id }}"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="checkbox-{{ $requirement->id }}"
+                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            {{ $requirement->description }}
+                        </label>
+                    </div>
+                    @endforeach
                 </div>
-                @endforeach
-            </div>
 
-            <div class="mt-10 flex gap-3">
-                <div>
-                    <label type="file" class="px-11 bg-green-1000 py-2 text-sm font-medium leading-5 text-center
+                <div class="mt-10">
+                    <div>
+                        <label type="file" class="px-11 bg-green-1000 py-2 text-sm font-medium leading-5 text-center
                     text-white transition-colors duration-150  border border-transparent rounded-lg active:bg-green-900
                     hover:bg-green-700 focus:outline-none focus:ring'">
-                        Upload Image of Requirements
-                        <input class="hidden" type="file" wire:model.debounce="requirementPhoto" multiple>
-                    </label>
+                            Upload Image of Requirements
+                            <input class="hidden" type="file" wire:model="requirementPhoto" name="requirementPhoto[]"
+                                id="requirementPhoto" multiple>
+                        </label>
 
-                    @error('requirementPhoto.*')
-                    <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
-                        $message
-                        }}</p>
-                    @enderror
-                </div>
-
-                @if ($requirementPhoto)
-
-                <div>
-                    Photo Preview:
-                    <div class="flex gap-2">
-                        @foreach ($requirementPhoto as $photo)
-                        <img class="mx-2 h-32 w-32" src="{{ $photo->temporaryUrl() }}">
-                        @endforeach
+                        @error('requirementPhoto.*')
+                        <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                            $message
+                            }}</p>
+                        @enderror
                     </div>
+
+                    @if ($requirementPhoto)
+
+                    <div class="mt-5">
+                        Photo Preview:
+                        <div class="mt-3 flex gap-2">
+                            @foreach ($requirementPhoto as $photo)
+                            <img class="mx-2 h-32 w-32" src="{{ $photo->temporaryUrl() }}">
+                            @endforeach
+                        </div>
+                    </div>
+                    @endif
                 </div>
                 @endif
+
+            </form>
+
+            @if ($counter == 5)
+            <p class="my-5 text-black font-medium text-lg">Applicant Information</p>
+            <div class="grid grid-cols-3 gap-6 mx-auto">
+                <div class="text-base font-medium text-cool-gray-600">
+                    First Name:
+                    <p class=" text-black font-medium text-lg">
+                        {{ $applicant_info['first_name'] ?? '' }}
+                    </p>
+                </div>
+
+                <div class="text-base font-medium text-cool-gray-600">
+                    Middle Name:
+                    <p class=" text-black font-medium text-lg">
+                        {{ $applicant_info['middle_name'] ?? '' }}
+                    </p>
+                </div>
+
+                <div class="text-base font-medium text-cool-gray-600">
+                    Last Name:
+                    <p class=" text-black font-medium text-lg">
+                        {{ $applicant_info['last_name'] ?? '' }}
+                    </p>
+                </div>
+
+                <div class="text-base font-medium text-cool-gray-600">
+                    Suffix:
+                    <p class=" text-black font-medium text-lg">
+                        {{ $applicant_info['suffix'] ?? '' }}
+                    </p>
+                </div>
+
+                <div class="text-base font-medium text-cool-gray-600">
+                    Address/Residence:
+                    <p class=" text-black font-medium text-lg">
+                        {{ $applicant_info['brgy_origin'] ?? '' }}
+                    </p>
+                </div>
+
+                <div class="text-base font-medium text-cool-gray-600">
+                    Birthday:
+                    <p class=" text-black font-medium text-lg">
+                        {{ $applicant_info['birth_date'] ?? '' }}
+                    </p>
+                </div>
+
+                <div class="text-base font-medium text-cool-gray-600">
+                    Place of Birth:
+                    <p class=" text-black font-medium text-lg">
+                        {{ $applicant_info['place_of_birth'] ?? '' }}
+                    </p>
+                </div>
+
+                <div class="text-base font-medium text-cool-gray-600">
+                    Citizenship:
+                    <p class=" text-black font-medium text-lg">
+                        {{ $applicant_info['citizenship'] ?? '' }}
+                    </p>
+                </div>
+
+                <div class="text-base font-medium text-cool-gray-600">
+                    Civil Status:
+                    <p class=" text-black font-medium text-lg">
+                        {{ $applicant_info['civil_status'] ?? '' }}
+                    </p>
+                </div>
+
+                <div class="text-base font-medium text-cool-gray-600">
+                    Contact:
+                    <p class=" text-black font-medium text-lg">
+                        {{ $applicant_info['contact'] ?? '' }}
+                    </p>
+                </div>
+
+                <div class="text-base font-medium text-cool-gray-600">
+                    Office:
+                    <p class=" text-black font-medium text-lg">
+                        {{ $applicant_info['office'] ?? '' }}
+                    </p>
+                </div>
+                <div class="text-base font-medium text-cool-gray-600">
+                    Tin Number:
+                    <p class=" text-black font-medium text-lg">
+                        {{ $applicant_info['tin_no'] ?? '' }}
+                    </p>
+                </div>
+
+                <div class="text-base font-medium text-cool-gray-600">
+                    GSIS/SSS/Pag-ibig No.:
+                    <p class=" text-black font-medium text-lg">
+                        {{ $applicant_info['govt_id'] ?? '' }}
+                    </p>
+                </div>
+
+                <div class="text-base font-medium text-cool-gray-600">
+                    Income per Month:
+                    <p class=" text-black font-medium text-lg">
+                        {{ $applicant_info['income_per_month'] ?? '' }}
+                    </p>
+                </div>
+
             </div>
 
+            <p class="border-b-2 my-5"></p>
 
-        </div>
-        @endif
+            <p class="my-5 text-black font-medium text-lg">Spouse Information</p>
+            <div class="grid grid-cols-3 gap-6 mx-auto">
+                <div class="text-base font-medium text-cool-gray-600">
+                    First Name:
+                    <p class=" text-black font-medium text-lg">
+                        {{ $spouse_info['spouse_first_name'] ?? '' }}
+                    </p>
+                </div>
 
-        @if ($counter == 5)
-        <p class="my-5 text-black font-medium text-lg">Applicant Information</p>
-        <div class="grid grid-cols-3 gap-6 mx-auto">
-            <div class="text-base font-medium text-cool-gray-600">
-                First Name:
-                <p class=" text-black font-medium text-lg">
-                    {{ $applicant_info['first_name'] ?? '' }}
-                </p>
+                <div class="text-base font-medium text-cool-gray-600">
+                    Middle Name:
+                    <p class=" text-black font-medium text-lg">
+                        {{ $spouse_info['spouse_middle_name'] ?? '' }}
+
+                    </p>
+                </div>
+
+                <div class="text-base font-medium text-cool-gray-600">
+                    Last Name:
+                    <p class=" text-black font-medium text-lg">
+                        {{ $spouse_info['spouse_last_name'] ?? '' }}
+                    </p>
+                </div>
+
+
+                <div class="text-base font-medium text-cool-gray-600">
+                    Birthday:
+                    <p class=" text-black font-medium text-lg">
+                        {{ $spouse_info['spouse_birth_date'] ?? '' }}
+                    </p>
+                </div>
+
+                <div class="text-base font-medium text-cool-gray-600">
+                    Place of Birth:
+                    <p class=" text-black font-medium text-lg">
+                        {{ $spouse_info['spouse_place_of_birth'] ?? '' }}
+                    </p>
+                </div>
             </div>
 
-            <div class="text-base font-medium text-cool-gray-600">
-                Middle Name:
-                <p class=" text-black font-medium text-lg">
-                    {{ $applicant_info['middle_name'] ?? '' }}
-                </p>
-            </div>
+            <p class="border-b-2 my-5"></p>
 
-            <div class="text-base font-medium text-cool-gray-600">
-                Last Name:
-                <p class=" text-black font-medium text-lg">
-                    {{ $applicant_info['last_name'] ?? '' }}
-                </p>
-            </div>
+            <div class="mt-5">
+                <p class="font-medium text-base my-5">Family Composition</p>
+                <x-table>
+                    <x-slot name="head">
+                        <x-table.heading sortable multi-column wire:click="sortBy('first_name')"
+                            :direction="$sorts['first_name'] ?? null">
+                            Name
+                        </x-table.heading>
 
-            <div class="text-base font-medium text-cool-gray-600">
-                Suffix:
-                <p class=" text-black font-medium text-lg">
-                    {{ $applicant_info['suffix'] ?? '' }}
-                </p>
-            </div>
+                        <x-table.heading sortable multi-column wire:click="sortBy('relation')"
+                            :direction="$sorts['relation'] ?? null">
+                            Relation
+                        </x-table.heading>
 
-            <div class="text-base font-medium text-cool-gray-600">
-                Address/Residence:
-                <p class=" text-black font-medium text-lg">
-                    {{ $applicant_info['brgy_origin'] ?? '' }}
-                </p>
-            </div>
+                        <x-table.heading sortable multi-column wire:click="sortBy('civil_status')"
+                            :direction="$sorts['civil_status'] ?? null">
+                            Civil Status
+                        </x-table.heading>
 
-            <div class="text-base font-medium text-cool-gray-600">
-                Birthday:
-                <p class=" text-black font-medium text-lg">
-                    {{ $applicant_info['birth_date'] ?? '' }}
-                </p>
-            </div>
+                        <x-table.heading sortable multi-column wire:click="sortBy('age')"
+                            :direction="$sorts['age'] ?? null">
+                            Age
+                        </x-table.heading>
 
-            <div class="text-base font-medium text-cool-gray-600">
-                Place of Birth:
-                <p class=" text-black font-medium text-lg">
-                    {{ $applicant_info['place_of_birth'] ?? '' }}
-                </p>
-            </div>
+                        <x-table.heading sortable multi-column wire:click="sortBy('source_of_income')"
+                            :direction="$sorts['source_of_income'] ?? null">
+                            Source of Income
+                        </x-table.heading>
 
-            <div class="text-base font-medium text-cool-gray-600">
-                Citizenship:
-                <p class=" text-black font-medium text-lg">
-                    {{ $applicant_info['citizenship'] ?? '' }}
-                </p>
-            </div>
+                    </x-slot>
+                    <x-slot name="body">
+                        @forelse ($familyCompositions as $family)
+                        <x-table.row wire:loading.class="opacity-50">
+                            <x-table.cell class="cell">
+                                {{ $family['first_name'] }}
+                            </x-table.cell>
 
-            <div class="text-base font-medium text-cool-gray-600">
-                Civil Status:
-                <p class=" text-black font-medium text-lg">
-                    {{ $applicant_info['civil_status'] ?? '' }}
-                </p>
-            </div>
+                            <x-table.cell class="cell">
+                                {{ $family['relation'] }}
+                            </x-table.cell>
 
-            <div class="text-base font-medium text-cool-gray-600">
-                Contact:
-                <p class=" text-black font-medium text-lg">
-                    {{ $applicant_info['contact'] ?? '' }}
-                </p>
-            </div>
+                            <x-table.cell class="cell">
+                                {{ $family['civil_status'] }}
+                            </x-table.cell>
 
-            <div class="text-base font-medium text-cool-gray-600">
-                Office:
-                <p class=" text-black font-medium text-lg">
-                    {{ $applicant_info['office'] ?? '' }}
-                </p>
-            </div>
-            <div class="text-base font-medium text-cool-gray-600">
-                Tin Number:
-                <p class=" text-black font-medium text-lg">
-                    {{ $applicant_info['tin_no'] ?? '' }}
-                </p>
-            </div>
+                            <x-table.cell class="cell">
+                                {{ $family['age'] }}
+                            </x-table.cell>
 
-            <div class="text-base font-medium text-cool-gray-600">
-                GSIS/SSS/Pag-ibig No.:
-                <p class=" text-black font-medium text-lg">
-                    {{ $applicant_info['govt_id'] ?? '' }}
-                </p>
-            </div>
+                            <x-table.cell class="cell">
+                                {{ $family['source_of_income'] }}
+                            </x-table.cell>
 
-            <div class="text-base font-medium text-cool-gray-600">
-                Income per Month:
-                <p class=" text-black font-medium text-lg">
-                    {{ $applicant_info['income_per_month'] ?? '' }}
-                </p>
-            </div>
-
-        </div>
-
-        <p class="border-b-2 my-5"></p>
-
-        <p class="my-5 text-black font-medium text-lg">Spouse Information</p>
-        <div class="grid grid-cols-3 gap-6 mx-auto">
-            <div class="text-base font-medium text-cool-gray-600">
-                First Name:
-                <p class=" text-black font-medium text-lg">
-                    {{ $spouse_info['spouse_first_name'] ?? '' }}
-                </p>
-            </div>
-
-            <div class="text-base font-medium text-cool-gray-600">
-                Middle Name:
-                <p class=" text-black font-medium text-lg">
-                    {{ $spouse_info['spouse_middle_name'] ?? '' }}
-
-                </p>
-            </div>
-
-            <div class="text-base font-medium text-cool-gray-600">
-                Last Name:
-                <p class=" text-black font-medium text-lg">
-                    {{ $spouse_info['spouse_last_name'] ?? '' }}
-                </p>
-            </div>
-
-
-            <div class="text-base font-medium text-cool-gray-600">
-                Birthday:
-                <p class=" text-black font-medium text-lg">
-                    {{ $spouse_info['spouse_birth_date'] ?? '' }}
-                </p>
-            </div>
-
-            <div class="text-base font-medium text-cool-gray-600">
-                Place of Birth:
-                <p class=" text-black font-medium text-lg">
-                    {{ $spouse_info['spouse_place_of_birth'] ?? '' }}
-                </p>
-            </div>
-        </div>
-
-        <p class="border-b-2 my-5"></p>
-
-        <div class="mt-5">
-            <p class="font-medium text-base my-5">Family Composition</p>
-            <x-table>
-                <x-slot name="head">
-                    <x-table.heading sortable multi-column wire:click="sortBy('first_name')"
-                        :direction="$sorts['first_name'] ?? null">
-                        Name
-                    </x-table.heading>
-
-                    <x-table.heading sortable multi-column wire:click="sortBy('relation')"
-                        :direction="$sorts['relation'] ?? null">
-                        Relation
-                    </x-table.heading>
-
-                    <x-table.heading sortable multi-column wire:click="sortBy('civil_status')"
-                        :direction="$sorts['civil_status'] ?? null">
-                        Civil Status
-                    </x-table.heading>
-
-                    <x-table.heading sortable multi-column wire:click="sortBy('age')"
-                        :direction="$sorts['age'] ?? null">
-                        Age
-                    </x-table.heading>
-
-                    <x-table.heading sortable multi-column wire:click="sortBy('source_of_income')"
-                        :direction="$sorts['source_of_income'] ?? null">
-                        Source of Income
-                    </x-table.heading>
-
-                </x-slot>
-                <x-slot name="body">
-                    @forelse ($familyCompositions as $family)
-                    <x-table.row wire:loading.class="opacity-50">
-                        <x-table.cell class="cell">
-                            {{ $family['first_name'] }}
-                        </x-table.cell>
-
-                        <x-table.cell class="cell">
-                            {{ $family['relation'] }}
-                        </x-table.cell>
-
-                        <x-table.cell class="cell">
-                            {{ $family['civil_status'] }}
-                        </x-table.cell>
-
-                        <x-table.cell class="cell">
-                            {{ $family['age'] }}
-                        </x-table.cell>
-
-                        <x-table.cell class="cell">
-                            {{ $family['source_of_income'] }}
-                        </x-table.cell>
-
-                    </x-table.row>
-                    @empty
-                    <td class="py-6" colspan="5">
-                        <div class="flex flex-col justify-center place-items-center align-center">
-                            <img class="w-24 h-24" src="{{ asset('images/empty.svg') }}" alt="Empty" />
-                            <div class="">
-                                <p class="mt-5 text-gray-500">
-                                    No data available ...
-                                </p>
+                        </x-table.row>
+                        @empty
+                        <td class="py-6" colspan="5">
+                            <div class="flex flex-col justify-center place-items-center align-center">
+                                <img class="w-24 h-24" src="{{ asset('images/empty.svg') }}" alt="Empty" />
+                                <div class="">
+                                    <p class="mt-5 text-gray-500">
+                                        No data available ...
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                    @endforelse
-                </x-slot>
-            </x-table>
-        </div>
-
-
-        <p class="my-5 text-black font-medium text-lg">Housing Project and Requirements</p>
-        <div class="grid grid-cols-4 gap-6 mx-auto">
-            <div class="text-base font-medium text-cool-gray-600">
-                Housing Project:
-                <p class=" text-black font-medium text-lg">
-                    {{ $housingProjectHandler->project ?? '' }}
-                </p>
-            </div>
-
-            <div class="text-base font-medium text-cool-gray-600">
-                Block:
-                <p class=" text-black font-medium text-lg">
-                    {{ $housing_info['block'] ?? '' }}
-
-                </p>
-            </div>
-
-            <div class="text-base font-medium text-cool-gray-600">
-                Lot:
-                <p class=" text-black font-medium text-lg">
-                    {{ $housingUnitHandler->lot_no ?? '' }}
-                </p>
+                        </td>
+                        @endforelse
+                    </x-slot>
+                </x-table>
             </div>
 
 
-            <div class="text-base font-medium text-cool-gray-600">
-                Phase:
-                <p class=" text-black font-medium text-lg">
-                    {{ $housing_info['phase'] ?? '' }}
-                </p>
+            <p class="my-5 text-black font-medium text-lg">Housing Project and Requirements</p>
+            <div class="grid grid-cols-4 gap-6 mx-auto">
+                <div class="text-base font-medium text-cool-gray-600">
+                    Housing Project:
+                    <p class=" text-black font-medium text-lg">
+                        {{ $housingProjectHandler->project ?? '' }}
+                    </p>
+                </div>
+
+                <div class="text-base font-medium text-cool-gray-600">
+                    Block:
+                    <p class=" text-black font-medium text-lg">
+                        {{ $housing_info['block'] ?? '' }}
+
+                    </p>
+                </div>
+
+                <div class="text-base font-medium text-cool-gray-600">
+                    Lot:
+                    <p class=" text-black font-medium text-lg">
+                        {{ $housingUnitHandler->lot_no ?? '' }}
+                    </p>
+                </div>
+
+
+                <div class="text-base font-medium text-cool-gray-600">
+                    Phase:
+                    <p class=" text-black font-medium text-lg">
+                        {{ $housing_info['phase'] ?? '' }}
+                    </p>
+                </div>
             </div>
-        </div>
-        <div class="mb-5">
-            @foreach ($requirementsHandler as $requirement)
-            <div class="text-sm
-         bg-transparent mt-5">
-                <li class=" text-cool-gray-900">
-                    {{ $requirement->description ?? '' }}
-                </li>
+
+            <p class="my-5 text-black font-medium text-lg">Requirements and attachment</p>
+            <div class="my-5">
+                <div>
+                    @foreach ($requirementsHandler as $requirement)
+                    <div class="text-sm
+                        bg-transparent mt-5">
+                        <li class=" text-cool-gray-900">
+                            {{ $requirement->description ?? '' }}
+                        </li>
+                    </div>
+                    @endforeach
+                </div>
+
+                <div class="mt-5 flex gap-2">
+                    @foreach ($requirementPhoto as $photo)
+                    <img class="mx-2 h-32 w-32" src="{{ $photo->temporaryUrl() }}">
+                    @endforeach
+                </div>
+
             </div>
 
+            @endif
 
-            @endforeach
-        </div>
-        @endif
+            <div class="flex justify-end gap-2">
+                <div class="flex justify-end mt-5">
+                    @if ($counter > 1)
+                    <x-button.text-button btnType="error" wire:click="previous">Back</x-button.text-button>
+                    @endif
 
-        <div class="flex justify-end gap-2">
-            <div class="flex justify-end mt-5">
-                @if ($counter > 1)
-                <x-button.text-button btnType="error" wire:click="previous">Back</x-button.text-button>
-                @endif
-
-                @if ($counter == 5)
-                <x-button.text-button btnType="success" wire:click="saveApplicant">Save New Applicant
-                </x-button.text-button>
-                @endif
-
-                @if ($counter < 5) <x-button.text-button wire:click='saveApplicant'>Next
+                    @if ($counter == 5)
+                    <x-button.text-button btnType="success" wire:click="saveApplicant">Save New Applicant
                     </x-button.text-button>
                     @endif
-            </div>
 
-        </div>
+
+                    @if ($counter < 5) <x-button.text-button wire:click='next'>Next
+                        </x-button.text-button>
+                        @endif
+                </div>
+
+            </div>
     </div>
 
 

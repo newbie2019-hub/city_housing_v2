@@ -38,8 +38,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('roles', RolesController::class);
     Route::resource('housingprojects', HousingUnitController::class);
 
-    Route::resource('applicants', ApplicantsController::class)->except('show');
+
+
+    Route::resource('applicants', ApplicantsController::class)->except(['edit', 'show']);
+    Route::get('applicants/{applicant}/edit', [ApplicantsController::class, 'edit'])->name('applicants.edit')->withTrashed();
     Route::get('applicants/{applicant}', [ApplicantsController::class, 'show'])->name('applicants.show')->withTrashed();
+
 
     Route::get('housingunits', HousingUnit::class)->name('housingunits');
 
