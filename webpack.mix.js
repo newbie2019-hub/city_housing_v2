@@ -16,3 +16,17 @@ mix.js("resources/js/app.js", "public/js").postCss(
     "public/css",
     [require("tailwindcss"), require("autoprefixer")]
 );
+
+
+mix.options({
+    hmrOptions: {
+        host: 'localhost',
+        port: '8079'
+    },
+});
+
+mix.webpackConfig({
+    devServer: {
+        port: '8079'
+    },
+});

@@ -2,7 +2,7 @@
     <div class=" p-4 w-auto  h-full md:h-auto">
         <div class=" bg-white rounded-lg dark:bg-gray-700">
             <div class="mb-5">
-                <p class="font-medium text-xl text-left">Filter applciat</p>
+                <p class="font-medium text-xl text-left">Filter Application</p>
                 <p class="text-gray-500 text-sm text-left">All fields are required</p>
             </div>
             <div class="grid grid-cols-2 gap-6 ">
@@ -47,7 +47,7 @@
                         <div>
                             <span>From</span>
                             <div class="relative mt-2">
-                                <x-floating-input wire:model="filterable.start_income_per_month" type="text"
+                                <x-floating-input type="number" wire:model.defer="filterable.start_income_per_month"
                                     id="start_income_per_month" name="start_income_per_month"
                                     class="block w-full border-2 " required />
                                 <x-floating-label for="start_income_per_month" :value="__('Income per Month')" />
@@ -57,7 +57,7 @@
                         <div>
                             <span>To</span>
                             <div class="relative mt-2">
-                                <x-floating-input wire:model="filterable.end_income_per_month" type="text"
+                                <x-floating-input  type="number" wire:model.defer="filterable.end_income_per_month"
                                     id="end_income_per_month" name="end_income_per_month" class="block w-full border-2 "
                                     required />
                                 <x-floating-label for="end_income_per_month" :value="__('Income per Month')" />

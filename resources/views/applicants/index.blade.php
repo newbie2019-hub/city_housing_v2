@@ -41,5 +41,9 @@
         @livewire('applicants.applicants')
     </div>
 
+    <div class="pt-12 my-6 bg-white rounded-lg shadow-xs">
+        @livewire('applicants.archive-applicant')
+    </div>
+
 
 </x-app-layout>

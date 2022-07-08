@@ -29,6 +29,10 @@ class ApplicantsInfo extends Model
         'income_per_month',
     ];
 
+    protected $casts = [
+        'income_per_month' => 'double'
+    ];
+
     public function getFullNameAttribute()
     {
         return sprintf(

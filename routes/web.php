@@ -11,6 +11,8 @@ use App\Http\Controllers\{
 
 use App\Http\Livewire\AccountLogs;
 use App\Http\Livewire\HousingUnit\HousingUnit;
+use App\Models\Applicant;
+use App\Models\ApplicantsInfo;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,4 +53,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+
+    Route::get('applicant/income', function(){
+        return Applicant::with('info')->whereRelation('info', 'income_per_month', '<=', 10000)->get();
+    });
 });

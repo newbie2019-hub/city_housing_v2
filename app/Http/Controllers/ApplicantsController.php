@@ -145,4 +145,9 @@ class ApplicantsController extends Controller
     {
         //
     }
+
+    public function income(ApplicantsInfo $info)
+     {
+        
+     }
 }
