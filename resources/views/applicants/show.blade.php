@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="py-5">
-        <div class="my-6 pb-5 text-2xl font-semibold text-gray-700 border-b-2 mt-16">
+        <div class="pb-5 my-6 mt-16 text-2xl font-semibold text-gray-700 border-b-2">
             <p class="text-2xl leading-8">
                 {{ __('Applicant Personal Information' ) }}
             </p>
@@ -8,7 +8,7 @@
         </div>
 
         <div class="mt-5">
-            <p class="font-medium text-base">Housing Project</p>
+            <p class="text-base font-medium">Housing Project</p>
             <div class="grid grid-cols-4 gap-6 mb-5">
 
                 <div class="mt-4">
@@ -48,7 +48,7 @@
         </div>
 
         <div class="mt-5">
-            <p class="font-medium text-lg">Applicant Basic Info</p>
+            <p class="text-lg font-medium">Applicant Basic Info</p>
 
             <div class="grid grid-cols-3 gap-2">
                 <div class="mt-4">
@@ -177,7 +177,7 @@
         </div>
 
         <div class="mt-5">
-            <p class="font-medium text-lg">Applicant Spouse Info</p>
+            <p class="text-lg font-medium">Applicant Spouse Info</p>
 
             <div class="grid grid-cols-3 gap-2">
                 <div class="mt-4">
@@ -233,7 +233,7 @@
         </div>
 
         <div class="mt-5">
-            <p class="font-medium text-base my-5">Family Composition</p>
+            <p class="my-5 text-base font-medium">Family Composition</p>
             <x-table>
                 <x-slot name="head">
                     <x-table.heading sortable multi-column wire:click="sortBy('first_name')"
@@ -313,12 +313,11 @@
 
 
         <div class="mt-5">
-            <p class="font-medium text-lg">Requirements</p>
+            <p class="text-lg font-medium">Requirements and attachment</p>
 
             <div class="grid grid-cols-4 gap-6 mb-5">
                 @foreach ($applicant->requirements as $requirement)
-                <div class="text-sm
-                bg-transparent mt-5">
+                <div class="mt-5 text-sm bg-transparent">
                     <li class=" text-cool-gray-900">
                         {{ $requirement->description ?? '' }}
                     </li>
@@ -326,9 +325,9 @@
                 @endforeach
             </div>
 
-            <div class="mt-5 flex gap-2">
+            <div class="flex gap-2 mt-5">
                 @foreach ($applicant->requirementsImage as $photo)
-                <img class="mx-2 h-32 w-32" src="{{ asset('storage/images/requirement/'. $photo->image) }}">
+                <img class="w-32 h-32 mx-2" src="{{ asset('storage/images/requirement/'. $photo->image) }}">
                 @endforeach
             </div>
         </div>

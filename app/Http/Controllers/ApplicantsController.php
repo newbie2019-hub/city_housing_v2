@@ -7,6 +7,7 @@ use App\Models\Applicant;
 use App\Models\ApplicantsInfo;
 use App\Models\FamilyComposition;
 use App\Models\HousingProject;
+use App\Models\Requirement;
 use App\Models\Spouse;
 use Illuminate\Http\Request;
 
@@ -91,7 +92,7 @@ class ApplicantsController extends Controller
     public function edit(Applicant $applicant)
     {
         $housing_projects = HousingProject::get(['id', 'project']);
-
+        $requirements = Requirement::all();
         $applicant->load(
             'info',
             'spouse',
@@ -101,7 +102,7 @@ class ApplicantsController extends Controller
             'requirementsImage'
         );
 
-        return view('applicants.edit', compact('applicant', 'housing_projects'));
+        return view('applicants.edit', compact('applicant', 'housing_projects', 'requirements'));
     }
 
     /**
@@ -113,6 +114,7 @@ class ApplicantsController extends Controller
      */
     public function update(ApplicantsRequest $request, Applicant $applicant)
     {
+
         $applicant->info->update($request->validated());
         $applicant->spouse->update($request->validated());
         $applicant->update($request->validated());
@@ -121,7 +123,7 @@ class ApplicantsController extends Controller
                 'relation' => $family['relation'],
                 'civil_status' => $family['civil_status'],
                 'age' => $family['age'],
-                'gender' => $family['gender'],
+
                 'source_of_income' => $family['source_of_income'],
 
             ], [
@@ -129,6 +131,7 @@ class ApplicantsController extends Controller
                 'first_name' => $family['first_name'],
                 'middle_name' => $family['middle_name'],
                 'last_name' => $family['last_name'],
+                'gender' => $family['gender'],
             ]);
         }
 

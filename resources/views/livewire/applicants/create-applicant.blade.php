@@ -686,7 +686,7 @@
 
                         </select>
                         @error('spouse_info.spouse_gender')
-                        <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
                             $message
                             }}</p>
                         @enderror
@@ -722,7 +722,7 @@
                 <p class="mt-5 text-base font-medium">Family Composition</p>
                 <div class="pb-5 border-b border-gray-200">
                     @foreach ($familyCompositions as $index => $familyComposition)
-                    <div class="border-b-2 pb-5">
+                    <div class="pb-5 border-b-2">
                         <div class="grid grid-cols-3 gap-6 ">
                             <div class="mt-4">
                                 <div class="relative">
@@ -735,7 +735,7 @@
                                 </div>
                                 @error('familyCompositions.{{$index}}.first_name')
                                 <p id="outlined_error_help"
-                                    class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                                    class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
                                     $message
                                     }}</p>
                                 @enderror
@@ -752,7 +752,7 @@
                                 </div>
                                 @error('familyCompositions.{{$index}}.middle_name')
                                 <p id="outlined_error_help"
-                                    class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                                    class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
                                     $message
                                     }}</p>
                                 @enderror
@@ -769,7 +769,7 @@
                                 </div>
                                 @error('familyCompositions.{{$index}}.last_name')
                                 <p id="outlined_error_help"
-                                    class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                                    class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
                                     $message
                                     }}</p>
                                 @enderror
@@ -800,7 +800,7 @@
                                 </select>
                                 @error('familyCompositions.{{$index}}.gender')
                                 <p id="outlined_error_help"
-                                    class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                                    class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
                                     $message
                                     }}</p>
                                 @enderror
@@ -817,7 +817,7 @@
                                 </div>
                                 @error('familyCompositions.{{$index}}.relation')
                                 <p id="outlined_error_help"
-                                    class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                                    class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
                                     $message
                                     }}</p>
                                 @enderror
@@ -848,7 +848,7 @@
                                 </select>
                                 @error('familyCompositions.{{$index}}.civil_status')
                                 <p id="outlined_error_help"
-                                    class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                                    class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
                                     $message
                                     }}</p>
                                 @enderror
@@ -866,7 +866,7 @@
                                 </div>
                                 @error('familyCompositions.{{$index}}.age')
                                 <p id="outlined_error_help"
-                                    class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                                    class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
                                     $message
                                     }}</p>
                                 @enderror
@@ -884,15 +884,18 @@
                                 </div>
                                 @error('familyCompositions.{{$index}}.source_of_income')
                                 <p id="outlined_error_help"
-                                    class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                                    class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
                                     $message
                                     }}</p>
                                 @enderror
                             </div>
 
+
+
                             <div class="mt-4">
                                 <div class="relative">
-                                    <x-button.text-button btnType="error" wire:click='removeFamily({{ $index }})'>Remove
+                                    <x-button.text-button btnType="error" wire:click="removeFamily({{ $index }})">
+                                        Remove
                                     </x-button.text-button>
                                 </div>
 
@@ -903,11 +906,8 @@
                     @endforeach
 
                     <div class="flex items-center justify-end ">
-                        <button wire:click.prevent="addFamily()" class="ml-3 mt-3 cursor-pointer px-4 py-2 text-sm font-medium leading-5
-                         text-center
-                         text-white transition-colors duration-150 bg-gray-800 border border-transparent rounded-lg
-                         active:bg-purple-600
-                         hover:bg-purple-700 focus:outline-none focus:ring">
+                        <button wire:click.prevent="addFamily()"
+                            class="px-4 py-2 mt-3 ml-3 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-gray-800 border border-transparent rounded-lg cursor-pointer active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring">
                             {{ __('Add Family Member') }}
                         </button>
                     </div>
@@ -932,7 +932,7 @@
                             @endforeach
                         </select>
                         @error('housing_info.housing_project_id')
-                        <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
                             $message
                             }}</p>
                         @enderror
@@ -953,7 +953,7 @@
                             @endforeach
                         </select>
                         @error('housing_info.block')
-                        <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
                             $message
                             }}</p>
                         @enderror
@@ -974,7 +974,7 @@
                             @endforeach
                         </select>
                         @error('housing_info.lot')
-                        <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
                             $message
                             }}</p>
                         @enderror
@@ -989,7 +989,7 @@
                             <x-floating-label for="phase_no" :value="__('Phase No.')" />
                         </div>
                         @error('housing_info.phase')
-                        <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
                             $message
                             }}</p>
                         @enderror
@@ -1003,7 +1003,7 @@
                     <div class="flex items-center mt-1">
                         <input wire:model.debounce="selectedRequirements" id="requirements-{{ $requirement->id }}"
                             name="requirements-{{ $requirement->id }}" type="checkbox" value="{{ $requirement->id }}"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                         <label for="checkbox-{{ $requirement->id }}"
                             class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                             {{ $requirement->description }}
@@ -1014,16 +1014,15 @@
 
                 <div class="mt-10">
                     <div>
-                        <label type="file" class="px-11 bg-green-1000 py-2 text-sm font-medium leading-5 text-center
-                    text-white transition-colors duration-150  border border-transparent rounded-lg active:bg-green-900
-                    hover:bg-green-700 focus:outline-none focus:ring'">
+                        <label type="file"
+                            class="py-2 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 border border-transparent rounded-lg px-11 bg-green-1000 active:bg-green-900 hover:bg-green-700 focus:outline-none focus:ring'">
                             Upload Image of Requirements
                             <input class="hidden" type="file" wire:model="requirementPhoto" name="requirementPhoto[]"
                                 id="requirementPhoto" multiple>
                         </label>
 
                         @error('requirementPhoto.*')
-                        <p id="outlined_error_help" class="mt-2 text-left text-xs text-red-600 dark:text-red-400">{{
+                        <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
                             $message
                             }}</p>
                         @enderror
@@ -1033,9 +1032,9 @@
 
                     <div class="mt-5">
                         Photo Preview:
-                        <div class="mt-3 flex gap-2">
+                        <div class="flex gap-2 mt-3">
                             @foreach ($requirementPhoto as $photo)
-                            <img class="mx-2 h-32 w-32" src="{{ $photo->temporaryUrl() }}">
+                            <img class="w-32 h-32 mx-2" src="{{ $photo->temporaryUrl() }}">
                             @endforeach
                         </div>
                     </div>
@@ -1046,121 +1045,121 @@
             </form>
 
             @if ($counter == 5)
-            <p class="my-5 text-black font-medium text-lg">Applicant Information</p>
+            <p class="my-5 text-lg font-medium text-black">Applicant Information</p>
             <div class="grid grid-cols-3 gap-6 mx-auto">
                 <div class="text-base font-medium text-cool-gray-600">
                     First Name:
-                    <p class=" text-black font-medium text-lg">
+                    <p class="text-lg font-medium text-black ">
                         {{ $applicant_info['first_name'] ?? '' }}
                     </p>
                 </div>
 
                 <div class="text-base font-medium text-cool-gray-600">
                     Middle Name:
-                    <p class=" text-black font-medium text-lg">
+                    <p class="text-lg font-medium text-black ">
                         {{ $applicant_info['middle_name'] ?? '' }}
                     </p>
                 </div>
 
                 <div class="text-base font-medium text-cool-gray-600">
                     Last Name:
-                    <p class=" text-black font-medium text-lg">
+                    <p class="text-lg font-medium text-black ">
                         {{ $applicant_info['last_name'] ?? '' }}
                     </p>
                 </div>
 
                 <div class="text-base font-medium text-cool-gray-600">
                     Suffix:
-                    <p class=" text-black font-medium text-lg">
+                    <p class="text-lg font-medium text-black ">
                         {{ $applicant_info['suffix'] ?? '' }}
                     </p>
                 </div>
 
                 <div class="text-base font-medium text-cool-gray-600">
                     Address/Residence:
-                    <p class=" text-black font-medium text-lg">
+                    <p class="text-lg font-medium text-black ">
                         {{ $applicant_info['brgy_origin'] ?? '' }}
                     </p>
                 </div>
 
                 <div class="text-base font-medium text-cool-gray-600">
                     Birthday:
-                    <p class=" text-black font-medium text-lg">
+                    <p class="text-lg font-medium text-black ">
                         {{ $applicant_info['birth_date'] ?? '' }}
                     </p>
                 </div>
 
                 <div class="text-base font-medium text-cool-gray-600">
                     Place of Birth:
-                    <p class=" text-black font-medium text-lg">
+                    <p class="text-lg font-medium text-black ">
                         {{ $applicant_info['place_of_birth'] ?? '' }}
                     </p>
                 </div>
 
                 <div class="text-base font-medium text-cool-gray-600">
                     Citizenship:
-                    <p class=" text-black font-medium text-lg">
+                    <p class="text-lg font-medium text-black ">
                         {{ $applicant_info['citizenship'] ?? '' }}
                     </p>
                 </div>
 
                 <div class="text-base font-medium text-cool-gray-600">
                     Civil Status:
-                    <p class=" text-black font-medium text-lg">
+                    <p class="text-lg font-medium text-black ">
                         {{ $applicant_info['civil_status'] ?? '' }}
                     </p>
                 </div>
 
                 <div class="text-base font-medium text-cool-gray-600">
                     Contact:
-                    <p class=" text-black font-medium text-lg">
+                    <p class="text-lg font-medium text-black ">
                         {{ $applicant_info['contact'] ?? '' }}
                     </p>
                 </div>
 
                 <div class="text-base font-medium text-cool-gray-600">
                     Office:
-                    <p class=" text-black font-medium text-lg">
+                    <p class="text-lg font-medium text-black ">
                         {{ $applicant_info['office'] ?? '' }}
                     </p>
                 </div>
                 <div class="text-base font-medium text-cool-gray-600">
                     Tin Number:
-                    <p class=" text-black font-medium text-lg">
+                    <p class="text-lg font-medium text-black ">
                         {{ $applicant_info['tin_no'] ?? '' }}
                     </p>
                 </div>
 
                 <div class="text-base font-medium text-cool-gray-600">
                     GSIS/SSS/Pag-ibig No.:
-                    <p class=" text-black font-medium text-lg">
+                    <p class="text-lg font-medium text-black ">
                         {{ $applicant_info['govt_id'] ?? '' }}
                     </p>
                 </div>
 
                 <div class="text-base font-medium text-cool-gray-600">
                     Income per Month:
-                    <p class=" text-black font-medium text-lg">
+                    <p class="text-lg font-medium text-black ">
                         {{ $applicant_info['income_per_month'] ?? '' }}
                     </p>
                 </div>
 
             </div>
 
-            <p class="border-b-2 my-5"></p>
+            <p class="my-5 border-b-2"></p>
 
-            <p class="my-5 text-black font-medium text-lg">Spouse Information</p>
+            <p class="my-5 text-lg font-medium text-black">Spouse Information</p>
             <div class="grid grid-cols-3 gap-6 mx-auto">
                 <div class="text-base font-medium text-cool-gray-600">
                     First Name:
-                    <p class=" text-black font-medium text-lg">
+                    <p class="text-lg font-medium text-black ">
                         {{ $spouse_info['spouse_first_name'] ?? '' }}
                     </p>
                 </div>
 
                 <div class="text-base font-medium text-cool-gray-600">
                     Middle Name:
-                    <p class=" text-black font-medium text-lg">
+                    <p class="text-lg font-medium text-black ">
                         {{ $spouse_info['spouse_middle_name'] ?? '' }}
 
                     </p>
@@ -1168,7 +1167,7 @@
 
                 <div class="text-base font-medium text-cool-gray-600">
                     Last Name:
-                    <p class=" text-black font-medium text-lg">
+                    <p class="text-lg font-medium text-black ">
                         {{ $spouse_info['spouse_last_name'] ?? '' }}
                     </p>
                 </div>
@@ -1176,23 +1175,23 @@
 
                 <div class="text-base font-medium text-cool-gray-600">
                     Birthday:
-                    <p class=" text-black font-medium text-lg">
+                    <p class="text-lg font-medium text-black ">
                         {{ $spouse_info['spouse_birth_date'] ?? '' }}
                     </p>
                 </div>
 
                 <div class="text-base font-medium text-cool-gray-600">
                     Place of Birth:
-                    <p class=" text-black font-medium text-lg">
+                    <p class="text-lg font-medium text-black ">
                         {{ $spouse_info['spouse_place_of_birth'] ?? '' }}
                     </p>
                 </div>
             </div>
 
-            <p class="border-b-2 my-5"></p>
+            <p class="my-5 border-b-2"></p>
 
             <div class="mt-5">
-                <p class="font-medium text-base my-5">Family Composition</p>
+                <p class="my-5 text-base font-medium">Family Composition</p>
                 <x-table>
                     <x-slot name="head">
                         <x-table.heading sortable multi-column wire:click="sortBy('first_name')"
@@ -1262,18 +1261,18 @@
             </div>
 
 
-            <p class="my-5 text-black font-medium text-lg">Housing Project and Requirements</p>
+            <p class="my-5 text-lg font-medium text-black">Housing Project and Requirements</p>
             <div class="grid grid-cols-4 gap-6 mx-auto">
                 <div class="text-base font-medium text-cool-gray-600">
                     Housing Project:
-                    <p class=" text-black font-medium text-lg">
+                    <p class="text-lg font-medium text-black ">
                         {{ $housingProjectHandler->project ?? '' }}
                     </p>
                 </div>
 
                 <div class="text-base font-medium text-cool-gray-600">
                     Block:
-                    <p class=" text-black font-medium text-lg">
+                    <p class="text-lg font-medium text-black ">
                         {{ $housing_info['block'] ?? '' }}
 
                     </p>
@@ -1281,7 +1280,7 @@
 
                 <div class="text-base font-medium text-cool-gray-600">
                     Lot:
-                    <p class=" text-black font-medium text-lg">
+                    <p class="text-lg font-medium text-black ">
                         {{ $housingUnitHandler->lot_no ?? '' }}
                     </p>
                 </div>
@@ -1289,18 +1288,17 @@
 
                 <div class="text-base font-medium text-cool-gray-600">
                     Phase:
-                    <p class=" text-black font-medium text-lg">
+                    <p class="text-lg font-medium text-black ">
                         {{ $housing_info['phase'] ?? '' }}
                     </p>
                 </div>
             </div>
 
-            <p class="my-5 text-black font-medium text-lg">Requirements and attachment</p>
+            <p class="my-5 text-lg font-medium text-black">Requirements and attachment</p>
             <div class="my-5">
                 <div>
                     @foreach ($requirementsHandler as $requirement)
-                    <div class="text-sm
-                        bg-transparent mt-5">
+                    <div class="mt-5 text-sm bg-transparent">
                         <li class=" text-cool-gray-900">
                             {{ $requirement->description ?? '' }}
                         </li>
@@ -1308,9 +1306,9 @@
                     @endforeach
                 </div>
 
-                <div class="mt-5 flex gap-2">
+                <div class="flex gap-2 mt-5">
                     @foreach ($requirementPhoto as $photo)
-                    <img class="mx-2 h-32 w-32" src="{{ $photo->temporaryUrl() }}">
+                    <img class="w-32 h-32 mx-2" src="{{ $photo->temporaryUrl() }}">
                     @endforeach
                 </div>
 

@@ -48,6 +48,16 @@ class ApplicantsRequest extends FormRequest
             'spouse_birth_date' => ['bail', 'required'],
             'spouse_place_of_birth' => ['bail', 'required'],
 
+
+            // 'familyCompositions.*.first_name' => ['bail', 'required', 'max:120'],
+            // 'familyCompositions.*.middle_name' => ['bail', 'nullable', 'max:120'],
+            // 'familyCompositions.*.last_name' => ['bail', 'required', 'max:120'],
+            // 'familyCompositions.*.gender' => ['bail', 'required', 'max:120'],
+            // 'familyCompositions.*.relation' => ['bail', 'required', 'max:120'],
+            // 'familyCompositions.*.civil_status' => ['bail', 'required', 'max:120'],
+            // 'familyCompositions.*.age' => ['bail', 'required', 'max:120'],
+            // 'familyCompositions.*.source_of_income' => ['bail', 'required', 'max:120'],
+
         ];
     }
 }

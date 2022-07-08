@@ -19,6 +19,17 @@ class AddFamilyComposition extends Component
         $this->familyCompositions[] = [];
     }
 
+
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function removeItem($value)
+    {
+        unset($this->familyCompositions[$value]);
+    }
+
     public function render()
     {
         return view('livewire.applicants.add-family-composition');

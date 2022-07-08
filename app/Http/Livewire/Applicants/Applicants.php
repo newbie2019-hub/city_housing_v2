@@ -81,6 +81,7 @@ class Applicants extends Component
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate(5, ['*'], 'applicant');
 
+
         $archivedApplicants = Applicant::onlyTrashed()
             ->with('info', 'spouse')
             ->orderBy($this->sortField, $this->sortDirection)

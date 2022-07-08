@@ -3,20 +3,30 @@
 namespace App\Http\Livewire\Applicants;
 
 use App\Models\Applicant;
+use App\Models\FamilyComposition;
+use Illuminate\Database\Eloquent\Model;
 use LivewireUI\Modal\ModalComponent;
 
 class ConfirmationModal extends ModalComponent
 {
     public $arhive;
     public  $applicant;
+    public  $type;
 
 
-    public function mount($applicant, $archive = null)
+    public function mount($applicant, $type, $archive = null)
     {
-
         $this->archive = $archive;
-        $applicantInfo = Applicant::withTrashed()->find($applicant);
-        $this->applicant = $applicantInfo;
+        $this->type = $type;
+        if ($this->type === 'Applicant') {
+            $applicantInfo = Applicant::withTrashed()->find($applicant);
+            $this->applicant = $applicantInfo;
+        }
+
+        if ($this->type === 'FamilyComposition') {
+            $applicantInfo = FamilyComposition::withTrashed()->find($applicant);
+            $this->applicant = $applicantInfo;
+        }
     }
 
     public function render()
@@ -32,8 +42,11 @@ class ConfirmationModal extends ModalComponent
             $this->applicant->delete();
         }
 
+        if ($this->type === 'FamilyComposition') return redirect()->route('applicants.index');
+
         $this->emit('archiveApplicantTableRefreshEvent');
         $this->emit('ApplicantTableRefreshEvent');
+
         $this->closeModal();
     }
 }

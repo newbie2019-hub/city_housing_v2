@@ -33,7 +33,7 @@ class Applicant extends Model
 
     public function family_composition()
     {
-        return $this->hasMany(FamilyComposition::class)->withTrashed();
+        return $this->hasMany(FamilyComposition::class);
     }
     public function requirementsImage()
     {

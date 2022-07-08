@@ -120,9 +120,8 @@
                             </div>
 
                             <div class="w-full font-medium text-red-600 transform hover:text-red-900 hover:scale-110">
-                                <button
-                                    wire:click='$emit("openModal", "applicants.confirmation-modal" , {{ json_encode([$applicant->id, "archive"]) }})'
-                                    type="submit">
+                                <button wire:click='$emit("openModal", "applicants.confirmation-modal" ,
+                                     {{ json_encode([$applicant->id, "Applicant", "archive" ]) }})' type="submit">
                                     Move to Trash
                                 </button>
                             </div>
@@ -242,7 +241,7 @@
                                 <div
                                     class="w-full font-medium text-red-600 transform hover:text-red-900 hover:scale-110">
                                     <button
-                                        wire:click='$emit("openModal", "applicants.confirmation-modal" , {{ json_encode([$archiveApplicant->id, "restore"]) }})'
+                                        wire:click='$emit("openModal", "applicants.confirmation-modal" , {{ json_encode([$archiveApplicant->id,  "Applicant",  "restore" ]) }})'
                                         type="submit">
                                         Restore
                                     </button>
