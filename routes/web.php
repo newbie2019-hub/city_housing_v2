@@ -11,6 +11,7 @@ use App\Http\Controllers\{
 
 use App\Http\Livewire\AccountLogs;
 use App\Http\Livewire\HousingUnit\HousingUnit;
+use App\Http\Livewire\OccupancyStatus\OccupancyStatusIndex;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,6 +47,7 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('housingunits', HousingUnit::class)->name('housingunits');
+    Route::get('occupancy', OccupancyStatusIndex::class)->name('occupancy');
 
     Route::resource('accountlogs', AccountLogsController::class);
 

@@ -55,6 +55,9 @@ class EditUser extends ModalComponent
     {
         $this->validateOnly($propertyName);
     }
+
+
+
     public function render()
     {
         return view('livewire.user-modal.edit-user');

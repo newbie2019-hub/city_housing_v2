@@ -47,6 +47,7 @@
                 <p class="text-base font-normal">Here are the Housing unit in Tacloban.</p>
                 </p>
             </div>
+
             @livewire('housing-project.housing-project-table')
         </div>
         {{--

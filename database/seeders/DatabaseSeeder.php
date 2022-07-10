@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             ApplicantSeeder::class,
             FamilyCompositionSeeder::class,
             RequirementSeeder::class,
+            OccupancyStatus::class,
         ]);
     }
 }

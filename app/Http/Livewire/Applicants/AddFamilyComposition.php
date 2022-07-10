@@ -2,12 +2,23 @@
 
 namespace App\Http\Livewire\Applicants;
 
+use App\Models\FamilyComposition;
 use Livewire\Component;
 
 class AddFamilyComposition extends Component
 {
 
     public $familyCompositions = [];
+
+
+
+    public function mount($familyCompositions)
+    {
+
+        $applicantFamilyComposition = FamilyComposition::where('applicant_id', $familyCompositions)->get()->toArray();
+        $this->familyCompositions = $applicantFamilyComposition;
+    }
+
 
     /**
      * Write code on Method
@@ -16,7 +27,18 @@ class AddFamilyComposition extends Component
      */
     public function addItem()
     {
-        $this->familyCompositions[] = [];
+        $this->familyCompositions[] = [
+            'id' => '',
+            'applicant_id' => '',
+            'first_name' => '',
+            'middle_name' => '',
+            'last_name' => '',
+            'gender' => '',
+            'relation' => '',
+            'civil_status' => '',
+            'age' => '',
+            'source_of_income' => '',
+        ];
     }
 
 

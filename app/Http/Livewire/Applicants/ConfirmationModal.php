@@ -42,7 +42,7 @@ class ConfirmationModal extends ModalComponent
             $this->applicant->delete();
         }
 
-        if ($this->type === 'FamilyComposition') return redirect()->route('applicants.index');
+        if ($this->type === 'FamilyComposition') return redirect()->back();
 
         $this->emit('archiveApplicantTableRefreshEvent');
         $this->emit('ApplicantTableRefreshEvent');

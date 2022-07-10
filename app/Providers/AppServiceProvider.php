@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,7 +28,6 @@ class AppServiceProvider extends ServiceProvider
         Builder::macro('whereLike', function ($field, $string) {
             return $string ? $this->orWhere($field, 'like', '%' . $string . '%') : $this;
         });
-
 
         // Builder::macro('hasWhereLike', function ($field, $string, $relation) {
         //     return $string ? $this->orWhereRelation($relation, $field, 'like', '%' . $string . '%') : $this;

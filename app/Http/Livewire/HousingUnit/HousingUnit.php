@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\HousingUnit;
 
+use App\Http\Livewire\DataTable\WithBulkSelect;
 use App\Http\Livewire\DataTable\WithSorting;
 use App\Models\HousingUnit as ModelsHousingUnit;
 use Livewire\Component;
@@ -10,22 +11,33 @@ use Livewire\WithPagination;
 class HousingUnit extends Component
 {
 
-    use WithPagination, WithSorting;
+    use WithPagination, WithSorting, WithBulkSelect;
 
-    protected $listeners = ['userTableRefreshEvent' => '$refresh'];
+    protected $listeners = ['housingunitUpdated' => 'render'];
 
     public function render()
     {
         $housingunits = ModelsHousingUnit::query()
             ->with('housingproject')
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate(10);
+            ->paginate(10, ['*'], 'housingunit');
 
-        return view('livewire.housing-unit.housing-unit', compact('housingunits'));
+        $archivedHousingunits = ModelsHousingUnit::query()
+            ->onlyTrashed()
+            ->with('housingproject')
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->paginate(10, ['*'], 'archivedHousingunit');
+
+        return view('livewire.housing-unit.housing-unit', compact('housingunits', 'archivedHousingunits'));
     }
 
-    public function updatingSearch()
+
+    public function updatedSelectAll()
     {
-        $this->resetPage();
+        $housingunits = ModelsHousingUnit::query()
+            ->with('housingproject')
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->paginate(10);
+        $this->selectAllData($housingunits);
     }
 }

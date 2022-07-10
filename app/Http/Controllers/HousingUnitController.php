@@ -82,12 +82,15 @@ class HousingUnitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(HousingProjectRequest $request, $housingProject)
+    public function update(HousingProjectRequest $request, HousingProject $housingProject)
     {
 
         // $this->authorize('housingprojct_update');
-        $housingProjects =  HousingProject::find($housingProject)->first();
-        $housingProjects->update($request->validated());
+        // $housingProjects =  HousingProject::find($housingProject)->first();
+
+        // $housingProjects->update($request->validated());
+
+        $housingProject->update($request->validated());
         toast('Housing Project Updated Succesfully', 'success');
 
         activity()

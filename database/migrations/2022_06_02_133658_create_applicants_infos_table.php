@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('birth_date');
             $table->string('civil_status');
             $table->string('office')->nullable();
-            $table->string('income_per_month');
+            $table->float('income_per_month');
             $table->boolean('deceased')->default(false);
             $table->softDeletes();
             $table->timestamps();

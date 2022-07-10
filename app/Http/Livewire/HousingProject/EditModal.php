@@ -10,8 +10,7 @@ class EditModal extends ModalComponent
 {
     use AuthorizesRequests;
 
-
-    public $housingproject;
+    public $housingProject;
     public $project;
     public $location;
     public $description;
@@ -22,19 +21,42 @@ class EditModal extends ModalComponent
         'description' => ['bail', 'required'],
     ];
 
-    public function mount(HousingProject $housingproject)
+    public function mount($housingproject)
     {
         // $this->authorize('housingprojct_update');
-        $housingprojects = $housingproject;
-        $this->project =   $housingprojects->project;
-        $this->location =   $housingprojects->location;
-        $this->description =   $housingprojects->description;
+        $this->housingProject = HousingProject::withTrashed()->find($housingproject);
+        $this->project = $this->housingProject->project;
+        $this->location = $this->housingProject->location;
+        $this->description = $this->housingProject->description;
     }
 
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName);
     }
+
+
+    public function UpdateHousingProject()
+    {
+
+        $this->validate();
+        $this->housingProject->update([
+            'project' => $this->project,
+            'location' => $this->location,
+            'description' => $this->description,
+        ]);
+
+        $this->emit('showToastNotification', ['type' => 'success', 'message' => 'Housing Project Updated successfully!', 'title' => 'Success']);
+
+        activity()
+            ->causedBy(auth()->user()->id)
+            ->event('Housing Project Updated')
+            ->log('Updated Housing Project');
+        $this->emit('housingprojectUpdated');
+
+        $this->emit('closeModal');
+    }
+
 
     public function render()
     {

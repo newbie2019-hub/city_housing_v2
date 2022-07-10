@@ -7,7 +7,7 @@
             <p class="text-base font-normal">Please make sure that your entered informations are correct.</p>
         </div>
 
-        <form method="POST" action="{{  route('applicants.update', $applicant) }}">
+        <form method="POST" action="{{  route('applicants.update', $applicant) }}" enctype="multipart/form-data">
             @method('PUT')
             @csrf
 
@@ -282,195 +282,39 @@
                 </div>
             </div>
 
-            <div class="mt-5">
-                <p class="my-5 text-base font-medium">Family Composition</p>
-                @foreach ($applicant->family_composition as $index => $familyComposition)
-                <div class="pb-5 border-b-2">
-                    <div class="grid grid-cols-3 gap-6 ">
-                        <div class="mt-4">
-                            <div class="relative">
-                                <x-floating-input value="{{ $familyComposition->first_name }}" type="text"
-                                    id="familyCompositions[{{$index}}][first_name]"
-                                    name="familyCompositions[{{$index}}][first_name]" class="block w-full border-2 "
-                                    required />
-                                <x-floating-label for="familyCompositions[{{$index}}][first_name]"
-                                    :value="__('First Name')" />
-                            </div>
-                            @error('familyCompositions[{{$index}}][first_name]')
-                            <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                                $message
-                                }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="mt-4">
-                            <div class="relative">
-                                <x-floating-input value="{{ $familyComposition->middle_name }}" type="text"
-                                    id="familyCompositions[{{ $index }}][middle_name]"
-                                    name="familyCompositions[{{ $index }}][middle_name]" class="block w-full border-2 "
-                                    required />
-                                <x-floating-label for="familyCompositions[{{ $index }}][middle_name]"
-                                    :value="__('Middle Name')" />
-                            </div>
-                            @error('familyCompositions[{{ $index }}][middle_name]')
-                            <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                                $message
-                                }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="mt-4">
-                            <div class="relative">
-                                <x-floating-input value="{{ $familyComposition->last_name }}" type="text"
-                                    id="familyCompositions[{{ $index }}][last_name]"
-                                    name="familyCompositions[{{ $index }}][last_name]" class="block w-full border-2 "
-                                    required />
-                                <x-floating-label for="familyCompositions[{{ $index }}][last_name]"
-                                    :value="__('Last Name')" />
-                            </div>
-                            @error('familyCompositions[{{ $index }}][last_name]')
-                            <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                                $message
-                                }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="mt-4">
-                            <div class="relative">
-                                <x-floating-input value="{{ $familyComposition->relation }}" type="text"
-                                    id="familyCompositions[{{ $index }}][relation]"
-                                    name="familyCompositions[{{ $index }}][relation]" class="block w-full border-2 "
-                                    required />
-                                <x-floating-label for="familyCompositions[{{ $index }}][relation]"
-                                    :value="__('Relation')" />
-                            </div>
-                            @error('familyCompositions[{{ $index }}][relation]')
-                            <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                                $message
-                                }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="mt-4">
-
-                            <select id="familyCompositions[{{ $index }}][gender]"
-                                name="familyCompositions[{{ $index }}][gender]"
-                                class="'block p-3 w-full text-sm
-                                    text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600
-                                    dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
-                                <option value="" selected>
-                                    Select a Gender
-                                </option>
-                                <option value="Male" @if ($familyComposition->gender==='Male' ) selected
-                                    @endif>
-                                    Male
-                                </option>
-
-                                <option value="Female" @if ($familyComposition->gender==='Female' ) selected
-                                    @endif>
-                                    Female
-                                </option>
-
-                                <option value="Other" @if ($familyComposition->gender==='Other' ) selected
-                                    @endif>
-                                    Other
-                                </option>
-
-                            </select>
-                        </div>
-
-                        <div class="mt-4">
-
-                            <select name="familyCompositions[{{ $index }}][civil_status]"
-                                id="familyCompositions[{{ $index }}][civil_status]"
-                                class="'block p-3 w-full text-sm
-                                    text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600
-                                    dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
-                                <option value="Single" @if ($familyComposition->civil_status==='Single' ) selected
-                                    @endif>
-                                    Single
-                                </option>
-
-                                <option value="Married" @if ($familyComposition->civil_status === 'Married' )
-                                    selected @endif>
-                                    Married
-                                </option>
-
-                                <option value="Widowed" @if ($familyComposition->civil_status==='Widowed' ) selected
-                                    @endif>
-                                    Widowed
-                                </option>
-
-                                <option value="Divorced" @if ($familyComposition->civil_status==='Divorced' ) selected
-                                    @endif>
-                                    Divorced
-                                </option>
-
-                            </select>
-                        </div>
-
-                        <div class="mt-4">
-                            <div class="relative">
-                                <x-floating-input value="{{ $familyComposition->age }}" type="text"
-                                    id="familyCompositions[{{ $index }}][age]"
-                                    name="familyCompositions[{{ $index }}][age]" class="block w-full border-2 "
-                                    required />
-                                <x-floating-label for="familyCompositions[{{ $index }}][age]" :value="__('Age')" />
-                            </div>
-                            @error('familyCompositions[{{ $index }}][age]')
-                            <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                                $message
-                                }}</p>
-                            @enderror
-                        </div>
-                        <div class="mt-4">
-                            <div class="relative">
-                                <x-floating-input value="{{ $familyComposition->source_of_income }}" type="text"
-                                    id="familyCompositions[{{ $index }}][source_of_income]"
-                                    name="familyCompositions[{{ $index }}][source_of_income]"
-                                    class="block w-full border-2 " required />
-                                <x-floating-label for="familyCompositions[{{ $index }}][source_of_income]"
-                                    :value="__('Source of Income')" />
-                            </div>
-                            @error('familyCompositions[{{ $index }}][source_of_income]')
-                            <p id="outlined_error_help" class="mt-2 text-xs text-left text-red-600 dark:text-red-400">{{
-                                $message
-                                }}</p>
-                            @enderror
-                        </div>
-
-                        @livewire('applicants.applicant-trash-family-member', ['id' => $familyComposition])
-                    </div>
-                </div>
-                @endforeach
-            </div>
-            @livewire('applicants.add-family-composition')
+            {{-- Family Composition --}}
+            <p class="mt-5 text-base font-medium">Family Composition</p>
+            @livewire('applicants.add-family-composition', ['familyCompositions' => $applicant->id])
 
             {{-- Requirements and attachments --}}
             <div class="mt-5">
-                <p class="text-lg font-medium">Requirements</p>
 
+                <p class="text-lg font-medium">Requirements</p>
                 <div class="grid grid-cols-4 gap-6 mb-5">
-                    @foreach ($applicant->requirements as $requirement)
-                    {{-- <div class="mt-5 text-sm bg-transparent">
-                        <li class=" text-cool-gray-900">
-                            {{ $requirement->description ?? '' }}
-                        </li>
-                    </div> --}}
+
+                    @foreach ($requirements as $index => $requirement)
 
                     <div class="mt-5 text-sm bg-transparent">
-                        <input id="requirements-{{ $requirement->id }}" name="requirements-{{ $requirement->id }}"
-                            type="checkbox" value="{{ $requirement->id }}" checked
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <input {{ in_array($requirement->id, $applicant->requirements->pluck('id')->toArray()) ?
+                        "checked" : ""
+                        }}
+                        id="requirements[{{ $index }}]" name="requirements[{{ $index }}]"
+                        type="checkbox" value="{{ $requirement->id }}" class="w-4 h-4 text-blue-600 bg-gray-100
+                        border-gray-300 rounded focus:ring-blue-500
+                        dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700
+                        dark:border-gray-600">
                         <label for="checkbox-{{ $requirement->id }}"
                             class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                             {{ $requirement->description }}
                         </label>
                     </div>
+
                     @endforeach
                 </div>
 
                 <p class="text-lg font-medium">Attachment</p>
+
+                @livewire('applicants.applicant-edit-requirement')
                 <div class="flex gap-2 mt-5">
                     @foreach ($applicant->requirementsImage as $photo)
                     <img class="w-32 h-32 mx-2" src="{{ asset('storage/images/requirement/'. $photo->image) }}">
@@ -487,7 +331,7 @@
                             {{ __('Back') }}
                         </x-back-button>
                         <x-button.text-button type="submit" btn-type="success">
-                            {{ __('Create') }}
+                            {{ __('Update') }}
                         </x-button.text-button>
                     </div>
 

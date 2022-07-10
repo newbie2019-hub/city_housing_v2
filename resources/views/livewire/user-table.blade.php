@@ -42,9 +42,9 @@
                             text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600
                             dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
                                 <option disabled>Select Status</option>
-                                <option value="Approved" @if ($approval_status === 1) selected @endif>Approved
+                                <option value="Approved" @if ($approval_status===1) selected @endif>Approved
                                 </option>
-                                <option value="Pending" @if ($approval_status === 0) selected @endif>Pending
+                                <option value="Pending" @if ($approval_status===0) selected @endif>Pending
                                 </option>
                             </select>
                         </div>
@@ -79,22 +79,28 @@
         <div class="w-full shadow-md sm:rounded-lg">
             <x-table>
                 <x-slot name="head">
-                    <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField == 'id' ? $sortDirection : null">
+                    <x-table.heading sortable wire:click="sortBy('id')"
+                        :direction="$sortField == 'id' ? $sortDirection : null">
                         ID
                     </x-table.heading>
-                    <x-table.heading sortable wire:click="sortBy('last_name')" :direction="$sortField == 'last_name' ? $sortDirection : null">
+                    <x-table.heading sortable wire:click="sortBy('last_name')"
+                        :direction="$sortField == 'last_name' ? $sortDirection : null">
                         User
                     </x-table.heading>
-                    <x-table.heading sortable wire:click="sortBy('email')" :direction="$sortField == 'email' ? $sortDirection : null">
+                    <x-table.heading sortable wire:click="sortBy('email')"
+                        :direction="$sortField == 'email' ? $sortDirection : null">
                         Email Address
                     </x-table.heading>
-                    <x-table.heading sortable wire:click="sortBy('contact')" :direction="$sortField == 'contact' ? $sortDirection : null">
+                    <x-table.heading sortable wire:click="sortBy('contact')"
+                        :direction="$sortField == 'contact' ? $sortDirection : null">
                         Contact
                     </x-table.heading>
-                    <x-table.heading sortable wire:click="sortBy('approve')" :direction="$sortField == 'approve' ? $sortDirection : null">
+                    <x-table.heading sortable wire:click="sortBy('approve')"
+                        :direction="$sortField == 'approve' ? $sortDirection : null">
                         Approval Status
                     </x-table.heading>
-                    <x-table.heading sortable wire:click="sortBy('created_at')" :direction="$sortField == 'created_at' ? $sortDirection : null">
+                    <x-table.heading sortable wire:click="sortBy('created_at')"
+                        :direction="$sortField == 'created_at' ? $sortDirection : null">
                         Created On
                     </x-table.heading>
                     <x-table.heading>
@@ -104,66 +110,65 @@
                 <x-slot name="body">
 
                     @forelse ($users as $user)
-                        <x-table.row wire:key="{{ $user->id }}" wire:loading.class="opacity-50">
-                            <x-table.cell class="cell">
-                                {{ $user->id }}
-                            </x-table.cell>
-                            <x-table.cell class="cell">
-                                <div class="flex items-center">
-                                    @if ($user->avatar)
-                                        <div class="w-16 h-16 my-auto mt-6">
-                                            <img src="{{ asset('images/' . $user->avatar) }}"
-                                                class="w-10 h-10 mx-2 rounded-full" />
-                                        </div>
-                                    @else
-                                        <div class="w-16 h-16 my-auto mt-6">
-                                            <img src="{{ asset('images/logo.jpg') }}"
-                                                class="w-10 h-10 mx-2 rounded-full" />
-                                        </div>
-                                    @endif
-                                    <span class="whitespace-nowrap">{{ $user->full_name }}</span>
+                    <x-table.row wire:key="{{ $user->id }}" wire:loading.class="opacity-50">
+                        <x-table.cell class="cell">
+                            {{ $user->id }}
+                        </x-table.cell>
+                        <x-table.cell class="cell">
+                            <div class="flex items-center">
+                                @if ($user->avatar)
+                                <div class="w-16 h-16 my-auto mt-6">
+                                    <img src="{{ asset('images/' . $user->avatar) }}"
+                                        class="w-10 h-10 mx-2 rounded-full" />
                                 </div>
-                            </x-table.cell>
-                            <x-table.cell class="cell">
-                                {{ $user->email }}
-                            </x-table.cell>
-                            <x-table.cell class="whitespace-nowrap">
-                                {{ $user->contact }}
-                            </x-table.cell>
-                            <x-table.cell class="whitespace-nowrap">
-                                <x-chip :event="$user->approve ? 'Approved' : 'Pending'"></x-chip>
-                            </x-table.cell>
-                            <x-table.cell class="whitespace-nowrap">
-                                {{ $user->created_at->format('F j, Y h:i:s A') }}
-                            </x-table.cell>
-                            <x-table.cell class="whitespace-nowrap">
-
-                                <x-button.text-button
-                                    wire:click="$emit('openModal', 'user-detail-modal', {{ json_encode(['user' => $user->id]) }})">
-                                    View
-                                </x-button.text-button>
-
-                                <x-button.text-button btnType="success"
-                                    wire:click="$emit('openModal', 'user-modal.edit-user', {{ json_encode(['user' => $user->id]) }})">
-                                    Edit
-                                </x-button.text-button>
-                                <x-button.text-button btnType="error"
-                                    wire:click="$emit('openModal', 'confirm-delete-modal', {{ json_encode([$user->id, 'delete']) }})">
-                                    Archive
-                                </x-button.text-button>
-                            </x-table.cell>
-                        </x-table.row>
-                    @empty
-                        <td class="py-6" colspan="5">
-                            <div class="flex flex-col justify-center place-items-center align-center">
-                                <img class="w-24 h-24" src="{{ asset('images/empty.svg') }}" alt="Empty" />
-                                <div class="">
-                                    <p class="mt-5 text-gray-500">
-                                        No data available ...
-                                    </p>
+                                @else
+                                <div class="w-16 h-16 my-auto mt-6">
+                                    <img src="{{ asset('images/logo.jpg') }}" class="w-10 h-10 mx-2 rounded-full" />
                                 </div>
+                                @endif
+                                <span class="whitespace-nowrap">{{ $user->full_name }}</span>
                             </div>
-                        </td>
+                        </x-table.cell>
+                        <x-table.cell class="cell">
+                            {{ $user->email }}
+                        </x-table.cell>
+                        <x-table.cell class="whitespace-nowrap">
+                            {{ $user->contact }}
+                        </x-table.cell>
+                        <x-table.cell class="whitespace-nowrap">
+                            <x-chip :event="$user->approve ? 'Approved' : 'Pending'"></x-chip>
+                        </x-table.cell>
+                        <x-table.cell class="whitespace-nowrap">
+                            {{ $user->created_at->format('F j, Y h:i:s A') }}
+                        </x-table.cell>
+                        <x-table.cell class="whitespace-nowrap">
+
+                            <x-button.text-button
+                                wire:click="$emit('openModal', 'user-detail-modal', {{ json_encode(['user' => $user->id]) }})">
+                                View
+                            </x-button.text-button>
+
+                            <x-button.text-button btnType="success"
+                                wire:click="$emit('openModal', 'user-modal.edit-user', {{ json_encode(['user' => $user->id]) }})">
+                                Edit
+                            </x-button.text-button>
+                            <x-button.text-button btnType="error"
+                                wire:click="$emit('openModal', 'confirm-delete-modal', {{ json_encode([$user->id, 'User' ,'delete']) }})">
+                                Archive
+                            </x-button.text-button>
+                        </x-table.cell>
+                    </x-table.row>
+                    @empty
+                    <td class="py-6" colspan="5">
+                        <div class="flex flex-col justify-center place-items-center align-center">
+                            <img class="w-24 h-24" src="{{ asset('images/empty.svg') }}" alt="Empty" />
+                            <div class="">
+                                <p class="mt-5 text-gray-500">
+                                    No data available ...
+                                </p>
+                            </div>
+                        </div>
+                    </td>
                     @endforelse
 
                 </x-slot>
@@ -177,7 +182,7 @@
     <x-modal.dialog wire:model.defer="showFilterModal">
         <x-slot name="title">
             Filter Data
-            <hr class="mt-3"/>
+            <hr class="mt-3" />
         </x-slot>
 
         <x-slot name="content">
@@ -200,17 +205,16 @@
             </div>
             <div class="relative w-full">
                 <p class="mt-2">Account Status</p>
-                <select wire:model.defer="approval_status" id="approval_status" name="approval_status"
-                    class="block px-2.5 py-3 w-full text-sm
+                <select wire:model.defer="approval_status" id="approval_status" name="approval_status" class="block px-2.5 py-3 w-full text-sm
                 text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600
                 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
                     <option disabled>Select Status</option>
                     <option value="All Data">
                         All Data
                     </option>
-                    <option value="Approved" @if ($approval_status === 1) selected @endif>Approved
+                    <option value="Approved" @if ($approval_status===1) selected @endif>Approved
                     </option>
-                    <option value="Pending" @if ($approval_status === 0) selected @endif>Pending
+                    <option value="Pending" @if ($approval_status===0) selected @endif>Pending
                     </option>
                 </select>
             </div>

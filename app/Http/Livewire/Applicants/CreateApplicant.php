@@ -150,8 +150,8 @@ class CreateApplicant extends Component
     {
         $this->authorize('applicant_create');
 
-        $requirements = Requirement::all();
 
+        $requirements = Requirement::get(['id', 'description']);
         $applicants = Applicant::query()
             ->with('info')
             ->when($this->first_name, function ($query, $first_name) {
@@ -324,7 +324,7 @@ class CreateApplicant extends Component
             ->event('Applicant Created')
             ->log('Updated Profile');
 
-        $this->emit('showToastNotification', ['type' => 'success', 'message' => 'Housing Unit created successfully!', 'title' => 'Success']);
+        $this->emit('showToastNotification', ['type' => 'success', 'message' => 'Applicant created successfully!', 'title' => 'Success']);
         return redirect()->route('applicants.index');
     }
 

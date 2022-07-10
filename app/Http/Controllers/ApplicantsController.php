@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\SaveApplicantAttachmentRequirmentAction;
 use App\Http\Requests\ApplicantsRequest;
 use App\Models\Applicant;
 use App\Models\ApplicantsInfo;
@@ -98,9 +99,11 @@ class ApplicantsController extends Controller
             'spouse',
             'housing_unit.housingproject',
             'family_composition',
-            'requirements:description',
+            'requirements:id,description',
             'requirementsImage'
         );
+
+        // $applicantRequirement = $applicant->requirements->pluck('id')->toArray();
 
         return view('applicants.edit', compact('applicant', 'housing_projects', 'requirements'));
     }
@@ -112,28 +115,50 @@ class ApplicantsController extends Controller
      * @param  \App\Models\Applicant  $applicant
      * @return \Illuminate\Http\Response
      */
-    public function update(ApplicantsRequest $request, Applicant $applicant)
+    public function update(ApplicantsRequest $request, Applicant $applicant, SaveApplicantAttachmentRequirmentAction $saveAttachementRequirements)
     {
+        if ($request->requirementPhoto)  $saveAttachementRequirements->execute($request->requirementPhoto, $applicant->id);
+
+        $updatedRequirement = $applicant->requirements()->whereNotIn('requirement_id', $request->requirements)->get();
 
         $applicant->info->update($request->validated());
         $applicant->spouse->update($request->validated());
         $applicant->update($request->validated());
-        foreach ($request->familyCompositions as $family) {
-            FamilyComposition::updateOrCreate([
-                'relation' => $family['relation'],
-                'civil_status' => $family['civil_status'],
-                'age' => $family['age'],
 
-                'source_of_income' => $family['source_of_income'],
 
-            ], [
-                'applicant_id' => $applicant->id,
-                'first_name' => $family['first_name'],
-                'middle_name' => $family['middle_name'],
-                'last_name' => $family['last_name'],
-                'gender' => $family['gender'],
-            ]);
+        $applicant
+            ->requirements()
+            ->attach($request->requirements);
+
+        $applicant
+            ->requirements()
+            ->detach($updatedRequirement);
+
+        if ($request->familyCompositions) {
+            foreach ($request->familyCompositions as $family) {
+                FamilyComposition::updateOrCreate([
+                    'relation' => $family['relation'],
+                    'civil_status' => $family['civil_status'],
+                    'age' => $family['age'],
+
+                    'source_of_income' => $family['source_of_income'],
+
+                ], [
+                    'applicant_id' => $applicant->id,
+                    'first_name' => $family['first_name'],
+                    'middle_name' => $family['middle_name'],
+                    'last_name' => $family['last_name'],
+                    'gender' => $family['gender'],
+                ]);
+            }
+
+            $applicant->family_composition()->whereNotIn(
+                'id',
+                collect($request->familyCompositions)->pluck('id')
+            )
+                ->delete();
         }
+
 
         return redirect()->route('applicants.index');
     }
