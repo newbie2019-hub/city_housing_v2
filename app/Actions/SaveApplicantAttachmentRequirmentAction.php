@@ -9,7 +9,6 @@ class SaveApplicantAttachmentRequirmentAction
 {
     public function execute($requirementPhoto = [], $applicantId)
     {
-
         foreach ($requirementPhoto as $index => $photo) {
             $requirement = $applicantId . '-' . $index . '-' . time() . '.' . $photo->getClientOriginalExtension();
             $photo->storeAs('public/images/requirement', $requirement);

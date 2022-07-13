@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Filter;
 
+use App\Models\HousingProject;
 use LivewireUI\Modal\ModalComponent;
 
 class FilterModal extends ModalComponent
@@ -13,10 +14,14 @@ class FilterModal extends ModalComponent
         'start'  => '',
         'end'  => '',
         'office'  => '',
+        'brgy_origin' => '',
+        'housing_project_id' => '',
     ];
     public function render()
     {
-        return view('livewire.filter.filter-modal');
+
+        $housing_projects = HousingProject::all();
+        return view('livewire.filter.filter-modal', compact('housing_projects'));
     }
 
 

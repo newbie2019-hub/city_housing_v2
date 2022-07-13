@@ -17,6 +17,8 @@ class Applicants extends Component
     public $start;
     public $end;
     public $office;
+    public $brgy_origin;
+    public $housing_project_id;
 
     protected $listeners = [
         'filter' => 'filter',
@@ -34,13 +36,15 @@ class Applicants extends Component
         $this->office = $value['office'];
         $this->end = $value['end'];
         $this->start = $value['start'];
+        $this->brgy_origin = $value['brgy_origin'];
+        $this->housing_project_id = $value['housing_project_id'];
         $this->emitSelf('render');
     }
 
     public function render()
     {
         $applicants = Applicant::search($this->search)
-            ->with('info', 'spouse')
+            ->with('info', 'spouse', 'housing_unit')
             ->where(
                 fn ($query) =>
                 $query
@@ -73,6 +77,17 @@ class Applicants extends Component
                         $this->end,
                         fn ($query) =>
                         $query->whereRelation('info', 'birth_date', '<=', $this->end)
+                    )
+                    ->when(
+                        $this->brgy_origin,
+                        fn ($query) =>
+                        $query->whereRelation('info', 'brgy_origin',  $this->brgy_origin)
+                    )
+
+                    ->when(
+                        $this->housing_project_id,
+                        fn ($query) =>
+                        $query->whereRelation('housing_unit', 'housing_project_id',  $this->housing_project_id)
                     )
 
 

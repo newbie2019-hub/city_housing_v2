@@ -12,7 +12,7 @@
                 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
 
                         <option value="">
-                            --Civil Status--
+                            Civil Status
                         </option>
 
                         <option value="Single">
@@ -83,6 +83,39 @@
                             <input wire:model="filterable.end" id="datepicker" type="date"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Select date">
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <span>Relocated</span>
+                    <div class="flex gap-2">
+                        <div>
+                            <span>Barangay Origin</span>
+                            <div class="relative mt-2">
+                                <x-floating-input type="text" id="brgy_origin" name="brgy_origin"
+                                    wire:model="filterable.brgy_origin" class="block w-full border-2 " required />
+                                <x-floating-label for="brgy_origin" :value="__('Barangay Origin')" />
+                            </div>
+                        </div>
+
+                        <div>
+                            <span>Relocation</span>
+                            <div class=" mt-2">
+                                <select wire:model="filterable.housing_project_id" name="housing_project_id"
+                                    id="housing_project_id" class="'block p-3 text-sm
+                                text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600
+                                dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+                                    <option selected value="">
+                                        Select Housing Project
+                                    </option>
+                                    @foreach ($housing_projects as $housing)
+                                    <option value="{{ $housing->id }}">
+                                        {{ $housing->project }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
